@@ -100,24 +100,37 @@ class Course {
   }
 }
 function getColor(hours) {
+  hours = Math.round(hours);
   if (hours === 0) return "white";
   if (hours > 0 && hours <= 5) return "green";
   if (hours >= 6 && hours <= 15) return "yellow";
   if (hours >= 16 && hours <= 25) return "blue";
+  if (hours >= 26 && hours <= 35) return "maroon";
   return "red";
 }
 function percentColor(percent) {
+  percent = Math.round(percent);
   if (percent === 100) return "white";
   if (percent <= 99 && percent >= 80) return "green";
   if (percent <= 79 && percent >= 60) return "yellow";
   if (percent <= 59 && percent >= 40) return "blue";
-  if (percent <= 39 && percent >= 0) return "red";
+  if (percent <= 39 && percent >= 20) return "maroon";
+  if (percent <= 19) return "red";
+}
+function removeCourse(courses, index) {
+  courses.splice(index, 1);
+  courseLoad(courses);
+}
+function resetProgress(courses, index) {
+  courses[index].progress = 0;
+  courseLoad(courses);
 }
 const courseLoad = function (courses) {
   let totalHours = 0;
   let totalCourseHours = 0;
+  courseUL.innerHTML = "";
 
-  courses.forEach((course) => {
+  courses.forEach((course, index) => {
     let courseHours = course.completedHours();
     totalHours += courseHours;
     totalCourseHours += course.totalHours;
@@ -141,8 +154,7 @@ const courseLoad = function (courses) {
     svgMI.style.marginRight = "2rem";
     courseUL.appendChild(listItem);
     svgMI.addEventListener("click", () => {
-      listItem.remove();
-      completed(totalHours, totalCourseHours);
+      removeCourse(courses, index);
     });
   });
 
