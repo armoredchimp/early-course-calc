@@ -1,0 +1,16 @@
+body {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+}
+li {
+  margin-bottom: 2rem;
+}
+ul {
+  list-style: none;
+}
+h1 {
+  font-weight: 400;
+}
+.version-num {
+  color: #48d2e4;
+}

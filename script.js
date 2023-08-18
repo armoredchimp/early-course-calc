@@ -99,7 +99,20 @@ class Course {
     return Math.round((this.totalHours - this.completedHours()) * 100) / 100;
   }
 }
-
+function getColor(hours) {
+  if (hours === 0) return "white";
+  if (hours > 0 && hours <= 5) return "green";
+  if (hours >= 6 && hours <= 15) return "yellow";
+  if (hours >= 16 && hours <= 25) return "blue";
+  return "red";
+}
+function percentColor(percent) {
+  if (percent === 100) return "white";
+  if (percent <= 99 && percent >= 80) return "green";
+  if (percent <= 79 && percent >= 60) return "yellow";
+  if (percent <= 59 && percent >= 40) return "blue";
+  if (percent <= 39 && percent >= 0) return "red";
+}
 const courseLoad = function (courses) {
   let totalHours = 0;
   let totalCourseHours = 0;
@@ -108,11 +121,18 @@ const courseLoad = function (courses) {
     let courseHours = course.completedHours();
     totalHours += courseHours;
     totalCourseHours += course.totalHours;
-    let courseR = `${course.progress}% of the ${course.totalHours}-hour ${
+    let remainingHours = course.remainingHours();
+    let colorR = getColor(remainingHours);
+    let colorP = percentColor(course.progress);
+    let courseR = `<span style="color: ${colorP};">${
+      course.progress
+    }%</span> of the ${course.totalHours}-hour ${
       course.name
-    } course has been completed, which is roughly ${courseHours} hours. ${course.remainingHours()} hours remain for this course.`;
+    } course has been completed, which is roughly ${courseHours} hours. <span style="color: ${colorR};">${remainingHours.toFixed(
+      2
+    )}</span> hours remain for this course.`;
     let listItem = document.createElement("li");
-    listItem.textContent = courseR;
+    listItem.innerHTML = courseR;
     courseUL.appendChild(listItem);
     console.log(courseR);
   });
@@ -121,7 +141,9 @@ const courseLoad = function (courses) {
     Math.round((totalHours / totalCourseHours) * 100 * 100) / 100;
   let remainingPercentage = Math.round((100 - completedPercentage) * 100) / 100;
 
-  let text = `${totalHours} hours out of ${totalCourseHours} in total have been completed, and ${
+  let text = `${totalHours.toFixed(
+    2
+  )} hours out of ${totalCourseHours} in total have been completed, and ${
     Math.round((totalCourseHours - totalHours) * 100) / 100
   } remain. ${completedPercentage}% of the course has been completed. ${remainingPercentage}% of the course remains to be completed.`;
   console.log(text);
