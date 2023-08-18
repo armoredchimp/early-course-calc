@@ -124,30 +124,54 @@ const courseLoad = function (courses) {
     let remainingHours = course.remainingHours();
     let colorR = getColor(remainingHours);
     let colorP = percentColor(course.progress);
-    let courseR = `<span style="color: ${colorP};">${
-      course.progress
-    }%</span> of the ${course.totalHours}-hour ${
+    let courseR = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="minus-icon">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg><span style="color: ${colorP};">${course.progress}%</span> of the ${
+      course.totalHours
+    }-hour ${
       course.name
     } course has been completed, which is roughly ${courseHours} hours. <span style="color: ${colorR};">${remainingHours.toFixed(
       2
-    )}</span> hours remain for this course.`;
+    )}</span> hours remain for this course.
+  `;
     let listItem = document.createElement("li");
     listItem.innerHTML = courseR;
+    let svgMI = listItem.querySelector(".minus-icon");
+    svgMI.style.width = "2rem";
+    svgMI.style.marginRight = "2rem";
     courseUL.appendChild(listItem);
-    console.log(courseR);
+    svgMI.addEventListener("click", () => {
+      listItem.remove();
+      completed(totalHours, totalCourseHours);
+    });
   });
 
-  let completedPercentage =
-    Math.round((totalHours / totalCourseHours) * 100 * 100) / 100;
-  let remainingPercentage = Math.round((100 - completedPercentage) * 100) / 100;
+  // let completedPercentage =
+  //   Math.round((totalHours / totalCourseHours) * 100 * 100) / 100;
+  // let remainingPercentage = Math.round((100 - completedPercentage) * 100) / 100;
 
-  let text = `${totalHours.toFixed(
-    2
-  )} hours out of ${totalCourseHours} in total have been completed, and ${
-    Math.round((totalCourseHours - totalHours) * 100) / 100
-  } remain. ${completedPercentage}% of the course has been completed. ${remainingPercentage}% of the course remains to be completed.`;
-  console.log(text);
-  result.innerHTML = text;
+  // let text = `${totalHours.toFixed(
+  //   2
+  // )} hours out of ${totalCourseHours} in total have been completed, and ${
+  //   Math.round((totalCourseHours - totalHours) * 100) / 100
+  // } remain. ${completedPercentage}% of the course has been completed. ${remainingPercentage}% of the course remains to be completed.`;
+  // console.log(text);
+  function completed(totalHours, totalCourseHours) {
+    let completedPercentage =
+      Math.round((totalHours / totalCourseHours) * 100 * 100) / 100;
+    let remainingPercentage =
+      Math.round((100 - completedPercentage) * 100) / 100;
+    let remainingHours =
+      Math.round((totalCourseHours - totalHours) * 100) / 100;
+
+    let text = `${totalHours.toFixed(
+      2
+    )} hours out of ${totalCourseHours} in total have been completed, and ${remainingHours} remain. ${completedPercentage}% of the course has been completed. ${remainingPercentage}% of the course remains to be completed.`;
+
+    console.log(text);
+    result.innerHTML = text;
+  }
+  completed(totalHours, totalCourseHours);
 };
 
 // Sample course load:

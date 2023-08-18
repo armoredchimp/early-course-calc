@@ -4,6 +4,9 @@ body {
 }
 li {
   margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
 }
 ul {
   list-style: none;
@@ -13,4 +16,7 @@ h1 {
 }
 .version-num {
   color: #48d2e4;
+}
+.minus-icon {
+  size: 1rem;
 }
