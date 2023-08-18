@@ -80,7 +80,8 @@
 //     } remain. ${completedPercentage}% of the course has been completed. ${remainingPercentage}% of the course remains to be completed.`
 //   );
 // };
-
+let courseUL = document.querySelector(".course");
+let result = document.querySelector(".result");
 // courseLoad(98, 100, 100, 100, 100, 90, 50, 5, 0, 0, 0);
 ///// Updated version:
 class Course {
@@ -107,22 +108,24 @@ const courseLoad = function (courses) {
     let courseHours = course.completedHours();
     totalHours += courseHours;
     totalCourseHours += course.totalHours;
-    console.log(
-      `${course.progress}% of the ${course.totalHours}-hour ${
-        course.name
-      } course has been completed, which is roughly ${courseHours} hours. ${course.remainingHours()} hours remain for this course.`
-    );
+    let courseR = `${course.progress}% of the ${course.totalHours}-hour ${
+      course.name
+    } course has been completed, which is roughly ${courseHours} hours. ${course.remainingHours()} hours remain for this course.`;
+    let listItem = document.createElement("li");
+    listItem.textContent = courseR;
+    courseUL.appendChild(listItem);
+    console.log(courseR);
   });
 
   let completedPercentage =
     Math.round((totalHours / totalCourseHours) * 100 * 100) / 100;
   let remainingPercentage = Math.round((100 - completedPercentage) * 100) / 100;
 
-  console.log(
-    `${totalHours} hours out of ${totalCourseHours} in total have been completed, and ${
-      Math.round((totalCourseHours - totalHours) * 100) / 100
-    } remain. ${completedPercentage}% of the course has been completed. ${remainingPercentage}% of the course remains to be completed.`
-  );
+  let text = `${totalHours} hours out of ${totalCourseHours} in total have been completed, and ${
+    Math.round((totalCourseHours - totalHours) * 100) / 100
+  } remain. ${completedPercentage}% of the course has been completed. ${remainingPercentage}% of the course remains to be completed.`;
+  console.log(text);
+  result.innerHTML = text;
 };
 
 // Sample course load:
