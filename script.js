@@ -137,16 +137,19 @@ const courseLoad = function (courses) {
     let remainingHours = course.remainingHours();
     let colorR = getColor(remainingHours);
     let colorP = percentColor(course.progress);
-    let courseR = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="minus-icon">
+    let courseR = `<div style="display: flex; justify-content: space-between; width: 100%;">
+    <div style="display: flex; align-items: center; gap: 0.3rem; font-size: 1rem;"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="minus-icon">
     <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-  </svg><span style="color: ${colorP};">${course.progress}%</span> of the ${
+    </svg><span style="color: ${colorP};">${course.progress}%</span> of the ${
       course.totalHours
     }-hour ${
       course.name
     } course has been completed, which is roughly ${courseHours} hours. <span style="color: ${colorR};">${remainingHours.toFixed(
       2
-    )}</span> hours remain for this course.
-  `;
+    )}</span> hours remain for this course.</div>
+    <button class="reset-button" style="align-self: center; margin-right: 24rem;">Reset</button>
+  </div>`;
+
     let listItem = document.createElement("li");
     listItem.innerHTML = courseR;
     let svgMI = listItem.querySelector(".minus-icon");
@@ -155,6 +158,10 @@ const courseLoad = function (courses) {
     courseUL.appendChild(listItem);
     svgMI.addEventListener("click", () => {
       removeCourse(courses, index);
+    });
+    let resetBtn = listItem.querySelector(".reset-button");
+    resetBtn.addEventListener("click", () => {
+      resetProgress(courses, index);
     });
   });
 
