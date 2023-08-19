@@ -80,10 +80,33 @@
 //     } remain. ${completedPercentage}% of the course has been completed. ${remainingPercentage}% of the course remains to be completed.`
 //   );
 // };
-let courseUL = document.querySelector(".course");
-let result = document.querySelector(".result");
+const courseUL = document.querySelector(".course");
+const result = document.querySelector(".result");
+const addNew = document.querySelector(".add-new");
+const modal = document.querySelector(".modal");
+const closeBtn = document.querySelector(".close");
+const addCourseBtn = document.getElementById("addCourseBtn");
 // courseLoad(98, 100, 100, 100, 100, 90, 50, 5, 0, 0, 0);
 ///// Updated version:
+addNew.addEventListener("click", () => {
+  modal.style.display = "block";
+});
+closeBtn.onclick = () => {
+  modal.style.display = "none";
+};
+window.onclick = (event) => {
+  if (event.target === modal) {
+    modal.style.display = "none";
+  }
+};
+addCourseBtn.addEventListener("click", () => {
+  const courseName = document.getElementById("courseName").value;
+  const totalHours = Number(document.getElementById("totalHours").value);
+  const newCourse = new Course(courseName, totalHours);
+  myCourses.push(newCourse);
+  courseLoad(myCourses); // update the course list
+  modal.style.display = "none"; // close the modal
+});
 class Course {
   constructor(name, totalHours, progress = 0) {
     this.name = name;
@@ -114,7 +137,7 @@ function percentColor(percent) {
   if (percent <= 99 && percent >= 80) return "green";
   if (percent <= 79 && percent >= 60) return "yellow";
   if (percent <= 59 && percent >= 40) return "blue";
-  if (percent <= 39 && percent >= 20) return "maroon";
+  if (percent <= 39 && percent >= 1) return "maroon";
   if (percent <= 19) return "red";
 }
 function removeCourse(courses, index) {
@@ -147,13 +170,13 @@ const courseLoad = function (courses) {
     } course has been completed, which is roughly ${courseHours} hours. <span style="color: ${colorR};">${remainingHours.toFixed(
       2
     )}</span> hours remain for this course.</div>
-    <button class="reset-button" style="align-self: center; margin-right: 24rem;">Reset</button>
+    <button class="reset-button" style="align-self: center; margin-right: 16rem; margin-bottom: 0.5rem; cursor: pointer;">Reset</button>
   </div>`;
 
     let listItem = document.createElement("li");
     listItem.innerHTML = courseR;
     let svgMI = listItem.querySelector(".minus-icon");
-    svgMI.style.width = "2rem";
+    svgMI.style.width = "1.4rem";
     svgMI.style.marginRight = "2rem";
     courseUL.appendChild(listItem);
     svgMI.addEventListener("click", () => {
