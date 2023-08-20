@@ -14,12 +14,27 @@ ul {
 h1 {
   font-weight: 400;
 }
+.fas {
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.fa-toggle-on {
+  color: #0c7e2e;
+}
+.toggle-complete-wrapper {
+  margin-top: 1.8rem;
+}
 .version-num {
   color: #48d2e4;
 }
 .minus-icon {
   width: 100%;
   cursor: pointer;
+}
+.minus-icon:hover {
+  color: blue;
 }
 .reset-button,
 .edit-button {
@@ -50,6 +65,10 @@ h1 {
   background-color: #0c7e2e;
   border: 1px solid black;
   cursor: pointer;
+}
+.add-new:hover,
+.add-new:active {
+  background-color: #2d595f;
 }
 .modal {
   display: none;
@@ -118,4 +137,5 @@ h1 {
 h3 {
   font-weight: 500;
   margin-bottom: 3rem;
+  color: rgba(159, 219, 159, 0.336);
 }

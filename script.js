@@ -89,8 +89,7 @@ const closeBtn = document.querySelector(".close");
 const closeBtnE = document.querySelector(".closeE");
 const addCourseBtn = document.getElementById("addCourseBtn");
 const editCourseBtn = document.getElementById("editCourseBtn");
-// courseLoad(98, 100, 100, 100, 100, 90, 50, 5, 0, 0, 0);
-///// Updated version:
+let showCompletedCourses = true;
 addNew.addEventListener("click", () => {
   modal.style.display = "block";
 });
@@ -187,14 +186,20 @@ const courseLoad = function (courses) {
   let totalCourseHours = 0;
   courseUL.innerHTML = "";
 
-  courses.forEach((course, index) => {
+  const filteredCourses = showCompletedCourses
+    ? courses
+    : courses.filter((course) => course.progress < 100);
+
+  filteredCourses.forEach((course, index) => {
     let courseHours = course.completedHours();
     totalHours += courseHours;
     totalCourseHours += course.totalHours;
     let remainingHours = course.remainingHours();
     let colorR = getColor(remainingHours);
     let colorP = percentColor(course.progress);
-    let courseR = `<div style="display: flex; justify-content: space-between; width: 100%;">
+    let backgroundColor =
+      course.progress === 100 ? "rgba(159, 219, 159, 0.336) ;" : "";
+    let courseR = `<div style="display: flex; justify-content: space-between; background-color: ${backgroundColor}; border-radius: 15px; padding: 0.5rem; padding-left: 1rem; width: 100%;">
     <div style="display: flex; align-items: center; gap: 0.3rem; font-size: 1rem;"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="minus-icon">
     <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
     </svg><span style="color: ${colorP};">${course.progress}%</span> of the ${
@@ -228,17 +233,6 @@ const courseLoad = function (courses) {
       editCourse(courses, index);
     });
   });
-
-  // let completedPercentage =
-  //   Math.round((totalHours / totalCourseHours) * 100 * 100) / 100;
-  // let remainingPercentage = Math.round((100 - completedPercentage) * 100) / 100;
-
-  // let text = `${totalHours.toFixed(
-  //   2
-  // )} hours out of ${totalCourseHours} in total have been completed, and ${
-  //   Math.round((totalCourseHours - totalHours) * 100) / 100
-  // } remain. ${completedPercentage}% of the course has been completed. ${remainingPercentage}% of the course remains to be completed.`;
-  // console.log(text);
   function completed(totalHours, totalCourseHours) {
     let completedPercentage =
       Math.round((totalHours / totalCourseHours) * 100 * 100) / 100;
@@ -264,10 +258,10 @@ let myCourses = [
   new Course("AWS", 14, 100),
   new Course("Linux", 12, 100),
   new Course("Aplus", 45, 100),
-  new Course("AWS_D", 32, 90),
+  new Course("AWS DVA", 32, 90),
   new Course("SQL", 22, 60),
-  new Course("Kubs", 28, 10),
-  new Course("TS", 15, 1),
+  new Course("Kubernetes", 28, 10),
+  new Course("TypeScript", 15, 1),
   new Course("Node", 35, 15),
   new Course("Svelte", 32, 0),
 ];
