@@ -84,8 +84,11 @@ const courseUL = document.querySelector(".course");
 const result = document.querySelector(".result");
 const addNew = document.querySelector(".add-new");
 const modal = document.querySelector(".modal");
+const editModal = document.querySelector(".modal-edit");
 const closeBtn = document.querySelector(".close");
+const closeBtnE = document.querySelector(".closeE");
 const addCourseBtn = document.getElementById("addCourseBtn");
+const editCourseBtn = document.getElementById("editCourseBtn");
 // courseLoad(98, 100, 100, 100, 100, 90, 50, 5, 0, 0, 0);
 ///// Updated version:
 addNew.addEventListener("click", () => {
@@ -94,11 +97,42 @@ addNew.addEventListener("click", () => {
 closeBtn.onclick = () => {
   modal.style.display = "none";
 };
+closeBtnE.onclick = () => {
+  editModal.style.display = "none";
+};
 window.onclick = (event) => {
-  if (event.target === modal) {
+  if (event.target === modal || event.target === editModal) {
     modal.style.display = "none";
+    editModal.style.display = "none";
   }
 };
+function editCourse(courses, index) {
+  editModal.style.display = "block";
+  let courseNameC = document.getElementById("courseNameE");
+  let totalHoursC = document.getElementById("totalHoursE");
+  let percentCompC = document.getElementById("percentComp");
+  courseNameC.value = courses[index].name;
+  totalHoursC.value = courses[index].totalHours;
+  percentCompC.value = courses[index].progress;
+  editCourseBtn.addEventListener("click", () => {
+    const updatedCourseName = courseNameC.value;
+    const updatedTotalHours = Number(totalHoursC.value);
+    const updatedProgress = Number(percentCompC.value);
+
+    // Check for correct percent value
+    if (updatedProgress < 0 || updatedProgress > 100) {
+      alert("Must enter a percentage from 0-100.");
+      percentCompC.value = updatedProgress; // Keep the incorrect value in the input field
+    } else {
+      courses[index].name = updatedCourseName;
+      courses[index].totalHours = updatedTotalHours;
+      courses[index].progress = updatedProgress;
+      courseLoad(courses);
+      editModal.style.display = "none"; // Close the edit modal only when values are correct
+    }
+  });
+}
+
 addCourseBtn.addEventListener("click", () => {
   const courseName = document.getElementById("courseName").value;
   const totalHours = Number(document.getElementById("totalHours").value);
@@ -170,7 +204,10 @@ const courseLoad = function (courses) {
     } course has been completed, which is roughly ${courseHours} hours. <span style="color: ${colorR};">${remainingHours.toFixed(
       2
     )}</span> hours remain for this course.</div>
-    <button class="reset-button" style="align-self: center; margin-right: 16rem; margin-bottom: 0.5rem; cursor: pointer;">Reset</button>
+    <div style="display:flex; width: 100%:">
+    <button class="reset-button" style="align-self: center; margin-right: 2rem; margin-bottom: 0.5rem; cursor: pointer;">Reset</button>
+    <button class="edit-button" style="align-self: center; margin-right: 15rem; margin-bottom: 0.5rem; cursor: pointer;">Edit</button>
+    </div>
   </div>`;
 
     let listItem = document.createElement("li");
@@ -185,6 +222,10 @@ const courseLoad = function (courses) {
     let resetBtn = listItem.querySelector(".reset-button");
     resetBtn.addEventListener("click", () => {
       resetProgress(courses, index);
+    });
+    let editBtn = listItem.querySelector(".edit-button");
+    editBtn.addEventListener("click", () => {
+      editCourse(courses, index);
     });
   });
 

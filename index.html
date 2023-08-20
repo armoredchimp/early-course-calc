@@ -14,7 +14,7 @@
   </head>
   <body>
     <div class="top-cont">
-      <h1>Course calculator version <span class="version-num">0.006</span></h1>
+      <h1>Course calculator version <span class="version-num">0.007</span></h1>
       <button class="add-new">Add Course</button>
     </div>
     <ul class="course"></ul>
@@ -28,6 +28,19 @@
         <label for="totalHours">Total Course Length (in hours):</label>
         <input type="number" id="totalHours" />
         <button class="addCBtn" id="addCourseBtn">Add Course</button>
+      </div>
+    </div>
+    <div class="modal-edit">
+      <div class="edit-modal-content">
+        <span class="closeE">&times;</span>
+        <h3>Edit Course</h3>
+        <label for="courseNameE">Course Name:</label>
+        <input type="text" id="courseNameE" />
+        <label for="totalHoursE">Total Course Length (in hours):</label>
+        <input type="number" id="totalHoursE" />
+        <label for="percentComp">Percentage Completed:</label>
+        <input type="number" id="percentComp" />
+        <button class="editCBtn" id="editCourseBtn">Edit Course</button>
       </div>
     </div>
     <script src="script.js"></script>
