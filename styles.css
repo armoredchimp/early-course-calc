@@ -23,6 +23,13 @@ h1 {
 .fa-toggle-on {
   color: #0c7e2e;
 }
+.fa-toggle-off {
+  color: #756ad8;
+}
+.fa-toggle-off:hover,
+.fa-toggle-off:active {
+  color: #0c7e2e;
+}
 .fa-toggle-on:hover,
 .fa-toggle-on:active {
   color: #756ad8;

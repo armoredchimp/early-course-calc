@@ -89,7 +89,18 @@ const closeBtn = document.querySelector(".close");
 const closeBtnE = document.querySelector(".closeE");
 const addCourseBtn = document.getElementById("addCourseBtn");
 const editCourseBtn = document.getElementById("editCourseBtn");
+const toggleBtn = document.getElementById("toggle-completed");
 let showCompletedCourses = true;
+toggleBtn.addEventListener("click", () => {
+  showCompletedCourses = !showCompletedCourses;
+  toggleBtn.className = showCompletedCourses
+    ? "fas fa-toggle-on"
+    : "fas fa-toggle-off";
+  const displayCourses = showCompletedCourses
+    ? myCourses
+    : myCourses.filter((course) => course.progress < 100);
+  courseLoad(displayCourses, myCourses);
+});
 addNew.addEventListener("click", () => {
   modal.style.display = "block";
 });
@@ -212,19 +223,21 @@ function resetProgress(courses, index) {
   courses[index].progress = 0;
   courseLoad(courses);
 }
-const courseLoad = function (courses) {
+const courseLoad = function (displayCourses, allCourses) {
   let totalHours = 0;
   let totalCourseHours = 0;
+
+  allCourses.forEach((course) => {
+    totalHours += course.completedHours();
+    totalCourseHours += course.totalHours;
+  });
+
   courseUL.innerHTML = "";
 
-  const filteredCourses = showCompletedCourses
-    ? courses
-    : courses.filter((course) => course.progress < 100);
-
-  filteredCourses.forEach((course, index) => {
+  displayCourses.forEach((course, index) => {
     let courseHours = course.completedHours();
-    totalHours += courseHours;
-    totalCourseHours += course.totalHours;
+    // totalHours += courseHours;
+    // totalCourseHours += course.totalHours;
     let remainingHours = course.remainingHours();
     let colorR = getColor(remainingHours);
     let colorP = percentColor(course.progress);
@@ -264,7 +277,7 @@ const courseLoad = function (courses) {
       editCourse(courses, index);
     });
   });
-  function completed(totalHours, totalCourseHours) {
+  function completed() {
     let completedPercentage =
       Math.round((totalHours / totalCourseHours) * 100 * 100) / 100;
     let remainingPercentage =
@@ -279,7 +292,7 @@ const courseLoad = function (courses) {
     console.log(text);
     result.innerHTML = text;
   }
-  completed(totalHours, totalCourseHours);
+  completed();
 };
 
 // Sample course load:
@@ -297,4 +310,4 @@ let myCourses = [
   new Course("Svelte", 32, 0),
 ];
 
-courseLoad(myCourses);
+courseLoad(myCourses, myCourses);
