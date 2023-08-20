@@ -158,7 +158,7 @@ function updateCourse(courses, index) {
     courses[index].name = updatedCourseName;
     courses[index].totalHours = updatedTotalHours;
     courses[index].progress = updatedProgress;
-    courseLoad(courses);
+    courseLoad(courses, courses);
     editModal.style.display = "none"; // Close the edit modal only when values are correct
   }
 }
@@ -179,7 +179,7 @@ addCourseBtn.addEventListener("click", () => {
   const totalHours = Number(document.getElementById("totalHours").value);
   const newCourse = new Course(courseName, totalHours);
   myCourses.push(newCourse);
-  courseLoad(myCourses); // update the course list
+  courseLoad(myCourses, myCourses); // update the course list
   modal.style.display = "none"; // close the modal
 });
 class Course {
@@ -217,11 +217,11 @@ function percentColor(percent) {
 }
 function removeCourse(courses, index) {
   courses.splice(index, 1);
-  courseLoad(courses);
+  courseLoad(courses, courses);
 }
 function resetProgress(courses, index) {
   courses[index].progress = 0;
-  courseLoad(courses);
+  courseLoad(courses, courses);
 }
 const courseLoad = function (displayCourses, allCourses) {
   let totalHours = 0;
@@ -253,7 +253,7 @@ const courseLoad = function (displayCourses, allCourses) {
     } course has been completed, which is roughly ${courseHours} hours. <span style="color: ${colorR};">${remainingHours.toFixed(
       2
     )}</span> hours remain for this course.</div>
-    <div style="display:flex; width: 100%:">
+    <div style="display:flex; ">
     <button class="reset-button" style="align-self: center; margin-right: 2rem; margin-bottom: 0.5rem; cursor: pointer;">Reset</button>
     <button class="edit-button" style="align-self: center; margin-right: 15rem; margin-bottom: 0.5rem; cursor: pointer;">Edit</button>
     </div>
@@ -266,15 +266,15 @@ const courseLoad = function (displayCourses, allCourses) {
     svgMI.style.marginRight = "2rem";
     courseUL.appendChild(listItem);
     svgMI.addEventListener("click", () => {
-      removeCourse(courses, index);
+      removeCourse(displayCourses, index);
     });
     let resetBtn = listItem.querySelector(".reset-button");
     resetBtn.addEventListener("click", () => {
-      resetProgress(courses, index);
+      resetProgress(displayCourses, index);
     });
     let editBtn = listItem.querySelector(".edit-button");
     editBtn.addEventListener("click", () => {
-      editCourse(courses, index);
+      editCourse(displayCourses, index);
     });
   });
   function completed() {

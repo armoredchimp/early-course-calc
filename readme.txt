@@ -1,3 +1,5 @@
+.008a 
+-fixed bugs that the previous button introduced
 .008 8/20/23
 -added a show completed courses button, which still calculates the values of the hidden coures in the overall totals
 .007 8/19/23 
