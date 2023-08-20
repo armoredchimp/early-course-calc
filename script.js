@@ -105,33 +105,64 @@ window.onclick = (event) => {
     editModal.style.display = "none";
   }
 };
+// function editCourse(courses, index) {
+//   editModal.style.display = "block";
+//   let courseNameC = document.getElementById("courseNameE");
+//   let totalHoursC = document.getElementById("totalHoursE");
+//   let percentCompC = document.getElementById("percentComp");
+//   courseNameC.value = courses[index].name;
+//   totalHoursC.value = courses[index].totalHours;
+//   percentCompC.value = courses[index].progress;
+//   editCourseBtn.addEventListener("click", () => {
+//     const updatedCourseName = courseNameC.value;
+//     const updatedTotalHours = Number(totalHoursC.value);
+//     const updatedProgress = Number(percentCompC.value);
+
+//     // Check for correct percent value
+//     if (updatedProgress < 0 || updatedProgress > 100) {
+//       alert("Must enter a percentage from 0-100.");
+//       percentCompC.value = updatedProgress; // Keep the incorrect value in the input field
+//     } else {
+//       courses[index].name = updatedCourseName;
+//       courses[index].totalHours = updatedTotalHours;
+//       courses[index].progress = updatedProgress;
+//       courseLoad(courses);
+//       editModal.style.display = "none"; // Close the edit modal only when values are correct
+//     }
+//   });
+// }
+function updateCourse(courses, index) {
+  const courseNameC = document.getElementById("courseNameE");
+  const totalHoursC = document.getElementById("totalHoursE");
+  const percentCompC = document.getElementById("percentComp");
+  const updatedCourseName = courseNameC.value;
+  const updatedTotalHours = Number(totalHoursC.value);
+  const updatedProgress = Number(percentCompC.value);
+
+  // Check for correct percent value
+  if (updatedProgress < 0 || updatedProgress > 100) {
+    alert("Must enter a percentage from 0-100.");
+    percentCompC.value = updatedProgress; // Keep the incorrect value in the input field
+  } else {
+    courses[index].name = updatedCourseName;
+    courses[index].totalHours = updatedTotalHours;
+    courses[index].progress = updatedProgress;
+    courseLoad(courses);
+    editModal.style.display = "none"; // Close the edit modal only when values are correct
+  }
+}
 function editCourse(courses, index) {
   editModal.style.display = "block";
-  let courseNameC = document.getElementById("courseNameE");
-  let totalHoursC = document.getElementById("totalHoursE");
-  let percentCompC = document.getElementById("percentComp");
+  const courseNameC = document.getElementById("courseNameE");
+  const totalHoursC = document.getElementById("totalHoursE");
+  const percentCompC = document.getElementById("percentComp");
   courseNameC.value = courses[index].name;
   totalHoursC.value = courses[index].totalHours;
   percentCompC.value = courses[index].progress;
-  editCourseBtn.addEventListener("click", () => {
-    const updatedCourseName = courseNameC.value;
-    const updatedTotalHours = Number(totalHoursC.value);
-    const updatedProgress = Number(percentCompC.value);
 
-    // Check for correct percent value
-    if (updatedProgress < 0 || updatedProgress > 100) {
-      alert("Must enter a percentage from 0-100.");
-      percentCompC.value = updatedProgress; // Keep the incorrect value in the input field
-    } else {
-      courses[index].name = updatedCourseName;
-      courses[index].totalHours = updatedTotalHours;
-      courses[index].progress = updatedProgress;
-      courseLoad(courses);
-      editModal.style.display = "none"; // Close the edit modal only when values are correct
-    }
-  });
+  // Update the onclick event with the correct index
+  editCourseBtn.onclick = () => updateCourse(courses, index);
 }
-
 addCourseBtn.addEventListener("click", () => {
   const courseName = document.getElementById("courseName").value;
   const totalHours = Number(document.getElementById("totalHours").value);
