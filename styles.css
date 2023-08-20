@@ -8,6 +8,10 @@ li {
   align-items: center;
   gap: 0.3rem;
 }
+li:hover {
+  background-color: #212b35;
+  border-radius: 15px;
+}
 ul {
   list-style: none;
 }

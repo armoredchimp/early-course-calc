@@ -1,3 +1,5 @@
+.008c
+-added hover effect for course lines
 .008a 
 -fixed bugs that the previous button introduced
 .008 8/20/23
