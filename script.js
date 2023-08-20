@@ -90,7 +90,33 @@ const closeBtnE = document.querySelector(".closeE");
 const addCourseBtn = document.getElementById("addCourseBtn");
 const editCourseBtn = document.getElementById("editCourseBtn");
 const toggleBtn = document.getElementById("toggle-completed");
+const sortBtn = document.querySelector(".sort-icon");
+const ascendIcon = document.getElementById("ascend-icon");
+const descendIcon = document.getElementById("descend-icon");
+const sortCriteria = document.getElementById("sortCriteria");
 let showCompletedCourses = true;
+let ascending = false;
+
+function toggleSortIcon() {
+  if (ascending) {
+    ascendIcon.style.display = "none";
+    descendIcon.style.display = "inline";
+  } else {
+    ascendIcon.style.display = "inline";
+    descendIcon.style.display = "none";
+  }
+}
+sortBtn.addEventListener("click", () => {
+  ascending = !ascending;
+  sortCourses(myCourses);
+  toggleSortIcon();
+});
+
+sortCriteria.addEventListener("change", () => {
+  ascending = false;
+  sortCourses(myCourses, sortCriteria.value);
+  toggleSortIcon();
+});
 toggleBtn.addEventListener("click", () => {
   showCompletedCourses = !showCompletedCourses;
   toggleBtn.className = showCompletedCourses
@@ -142,6 +168,29 @@ window.onclick = (event) => {
 //     }
 //   });
 // }
+function sortCourses(displayCourses) {
+  const selectedCriteria = sortCriteria.value;
+  displayCourses.sort((a, b) => {
+    let compareA, compareB;
+
+    if (selectedCriteria === "progress") {
+      compareA = a.progress;
+      compareB = b.progress;
+    } else {
+      // Sort by hours remaining
+      compareA = a.totalHours - (a.progress * a.totalHours) / 100;
+      compareB = b.totalHours - (b.progress * b.totalHours) / 100;
+    }
+
+    return ascending ? compareB - compareA : compareA - compareB;
+  });
+
+  const coursesToDisplay = showCompletedCourses
+    ? displayCourses
+    : displayCourses.filter((course) => course.progress < 100);
+
+  courseLoad(coursesToDisplay, displayCourses);
+}
 function updateCourse(courses, index) {
   const courseNameC = document.getElementById("courseNameE");
   const totalHoursC = document.getElementById("totalHoursE");

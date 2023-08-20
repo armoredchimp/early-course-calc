@@ -18,6 +18,27 @@ ul {
 h1 {
   font-weight: 400;
 }
+.sort-cont {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.sort-icon {
+  display: flex;
+  align-items: center;
+}
+.sort {
+  width: 1.3rem;
+  cursor: pointer;
+}
+.asc:hover,
+.asc:active {
+  color: #0c7e2e;
+}
+.desc:hover,
+.desc:active {
+  color: #756ad8;
+}
 .fas {
   background-color: transparent;
   border: none;
@@ -73,7 +94,9 @@ h1 {
 }
 .top-cont {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  margin-left: 2rem;
+  margin-right: 2rem;
 }
 .add-new {
   padding: 0.5rem;

@@ -1,3 +1,5 @@
+.008d
+-added sort button with icons for ascending/descending order, as well as criteria selector. surprisingly bug free for now..
 .008c
 -added hover effect for course lines
 .008a 
