@@ -1,3 +1,7 @@
+.009 8/21/23
+- added color scheme selector, basic dark mode. 
+- changed various colors, still much to do
+- fixed a few bugs 
 .008f
 - moved completed report to a list, and added colors to the various values within. Color scheme selection is definitely next.
 .008d

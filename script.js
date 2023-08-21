@@ -215,10 +215,14 @@ function updateCourse(displayCourses, allCourses, index) {
     displayCourses[index].name = updatedCourseName;
     displayCourses[index].totalHours = updatedTotalHours;
     displayCourses[index].progress = updatedProgress;
+
+    if (!showCompletedCourses && updatedProgress === 100) {
+      displayCourses = displayCourses.filter((course) => course.progress < 100);
+    }
     courseLoad(displayCourses, allCourses);
     editModal.style.display = "none"; // Close the edit modal only when values are correct
+    // completed();
   }
-  completed();
 }
 function editCourse(displayCourses, allCourses, index) {
   editModal.style.display = "block";
