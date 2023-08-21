@@ -94,9 +94,10 @@ const sortBtn = document.querySelector(".sort-icon");
 const ascendIcon = document.getElementById("ascend-icon");
 const descendIcon = document.getElementById("descend-icon");
 const sortCriteria = document.getElementById("sortCriteria");
+const colorScheme = document.getElementById("colorScheme");
 let showCompletedCourses = true;
 let ascending = false;
-
+let currentColorScheme = "";
 function toggleSortIcon() {
   if (ascending) {
     ascendIcon.style.display = "none";
@@ -126,6 +127,13 @@ toggleBtn.addEventListener("click", () => {
     ? myCourses
     : myCourses.filter((course) => course.progress < 100);
   courseLoad(displayCourses, myCourses);
+});
+colorScheme.addEventListener("change", () => {
+  if (currentColorScheme) {
+    document.body.classList.remove(currentColorScheme);
+  }
+  currentColorScheme = colorScheme.value;
+  document.body.classList.add(`${currentColorScheme}`);
 });
 addNew.addEventListener("click", () => {
   modal.style.display = "block";
@@ -323,7 +331,7 @@ const courseLoad = function (displayCourses, allCourses) {
     let colorR = getColor(remainingHours);
     let colorP = percentColor(course.progress);
     let backgroundColor =
-      course.progress === 100 ? "rgba(159, 219, 159, 0.336) ;" : "";
+      course.progress === 100 ? "var(--highlight-color);" : "";
     let courseR = `<div class="course-line" style="display: flex; justify-content: space-between; background-color: ${backgroundColor}; border-radius: 15px; padding: 0.5rem; padding-left: 1rem; width: 100%;">
     <div style="display: flex; align-items: center; gap: 0.3rem; font-size: 1rem;"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="minus-icon">
     <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />

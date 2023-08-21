@@ -2,14 +2,41 @@ body {
   font-family: "Roboto", sans-serif;
   font-weight: 400;
   background-color: var(--background-color);
+  color: var(--text-color);
 }
 :root {
   --primary-color: #0c7e2e;
   --background-color: #eeeeee;
   --secondary-color: #756ad8;
   --text-color: black;
-  --white-color: white;
+  --white-color: #ffffff;
   --yellow-color: #b47b00;
+  /* --blue-color: #3d1df1; */
+  --maroon-color: #c73509;
+  --red-color: #f51111;
+  --teal-color: #067c6c;
+  --highlight-color: rgba(159, 219, 159, 0.336);
+}
+.colorful {
+  --primary-color: #0c7e2e;
+  --background-color: #eeeeee;
+  --secondary-color: #756ad8;
+  --text-color: black;
+  --white-color: #ffffff;
+  --yellow-color: #b47b00;
+  /* --blue-color: #3d1df1; */
+  --maroon-color: #c73509;
+  --red-color: #f51111;
+  --teal-color: #067c6c;
+  --highlight-color: rgba(159, 219, 159, 0.336);
+}
+.dark {
+  --primary-color: #2c74b3;
+  --background-color: #121212;
+  --secondary-color: #756ad8;
+  --text-color: #ffffff;
+  --white-color: black;
+  --yellow-color: #e94560;
   /* --blue-color: #3d1df1; */
   --maroon-color: #c73509;
   --red-color: #f51111;
