@@ -199,7 +199,7 @@ function sortCourses(displayCourses) {
 
   courseLoad(coursesToDisplay, displayCourses);
 }
-function updateCourse(courses, index) {
+function updateCourse(displayCourses, allCourses, index) {
   const courseNameC = document.getElementById("courseNameE");
   const totalHoursC = document.getElementById("totalHoursE");
   const percentCompC = document.getElementById("percentComp");
@@ -212,24 +212,25 @@ function updateCourse(courses, index) {
     alert("Must enter a percentage from 0-100.");
     percentCompC.value = updatedProgress; // Keep the incorrect value in the input field
   } else {
-    courses[index].name = updatedCourseName;
-    courses[index].totalHours = updatedTotalHours;
-    courses[index].progress = updatedProgress;
-    courseLoad(courses, courses);
+    displayCourses[index].name = updatedCourseName;
+    displayCourses[index].totalHours = updatedTotalHours;
+    displayCourses[index].progress = updatedProgress;
+    courseLoad(displayCourses, allCourses);
     editModal.style.display = "none"; // Close the edit modal only when values are correct
   }
+  completed();
 }
-function editCourse(courses, index) {
+function editCourse(displayCourses, allCourses, index) {
   editModal.style.display = "block";
   const courseNameC = document.getElementById("courseNameE");
   const totalHoursC = document.getElementById("totalHoursE");
   const percentCompC = document.getElementById("percentComp");
-  courseNameC.value = courses[index].name;
-  totalHoursC.value = courses[index].totalHours;
-  percentCompC.value = courses[index].progress;
+  courseNameC.value = displayCourses[index].name;
+  totalHoursC.value = displayCourses[index].totalHours;
+  percentCompC.value = displayCourses[index].progress;
 
   // Update the onclick event with the correct index
-  editCourseBtn.onclick = () => updateCourse(courses, index);
+  editCourseBtn.onclick = () => updateCourse(displayCourses, allCourses, index);
 }
 addCourseBtn.addEventListener("click", () => {
   const courseName = document.getElementById("courseName").value;
@@ -308,9 +309,9 @@ function removeCourse(courses, index) {
   courses.splice(index, 1);
   courseLoad(courses, courses);
 }
-function resetProgress(courses, index) {
-  courses[index].progress = 0;
-  courseLoad(courses, courses);
+function resetProgress(displayCourses, allCourses, index) {
+  displayCourses[index].progress = 0;
+  courseLoad(displayCourses, allCourses);
 }
 const courseLoad = function (displayCourses, allCourses) {
   let totalHours = 0;
@@ -359,11 +360,11 @@ const courseLoad = function (displayCourses, allCourses) {
     });
     let resetBtn = listItem.querySelector(".reset-button");
     resetBtn.addEventListener("click", () => {
-      resetProgress(displayCourses, index);
+      resetProgress(displayCourses, allCourses, index);
     });
     let editBtn = listItem.querySelector(".edit-button");
     editBtn.addEventListener("click", () => {
-      editCourse(displayCourses, index);
+      editCourse(displayCourses, allCourses, index);
     });
   });
   function completed() {
