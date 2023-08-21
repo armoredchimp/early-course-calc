@@ -17,6 +17,9 @@
     />
   </head>
   <body>
+    <div class="title-cont">
+      <h1>Course calculator version <span class="version-num">0.008</span></h1>
+    </div>
     <div class="top-cont">
       <div class="sort-cont">
         <div class="sort-icon">
@@ -58,10 +61,17 @@
           <option value="hoursRemaining">Remaining</option>
         </select>
       </div>
-      <h1>Course calculator version <span class="version-num">0.008</span></h1>
       <div class="toggle-complete-wrapper">
         <span>Show completed courses</span>
         <button id="toggle-completed" class="fas fa-toggle-on"></button>
+      </div>
+      <div class="color-wrapper">
+        <label for="colorScheme">Color Scheme</label>
+        <select id="colorScheme" class="hidden-dropdown">
+          <option value="colorful">Colorful</option>
+          <option value="dark">Dark Mode</option>
+          <option value="simple">Simple</option>
+        </select>
       </div>
       <button class="add-new">Add Course</button>
     </div>

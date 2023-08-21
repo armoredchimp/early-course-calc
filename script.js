@@ -248,52 +248,52 @@ class Course {
 }
 function getColor(hours) {
   hours = Math.round(hours);
-  if (hours === 0) return "white";
-  if (hours > 0 && hours <= 5) return "green";
-  if (hours >= 6 && hours <= 15) return "yellow";
-  if (hours >= 16 && hours <= 25) return "blue";
-  if (hours >= 26 && hours <= 35) return "maroon";
-  return "red";
+  if (hours === 0) return "var(--text-color)";
+  if (hours > 0 && hours <= 5) return "var(--primary-color)";
+  if (hours >= 6 && hours <= 15) return "var(--yellow-color)";
+  if (hours >= 16 && hours <= 25) return "var(--secondary-color)";
+  if (hours >= 26 && hours <= 35) return "var(--maroon-color)";
+  return "var(--red-color)";
 }
 function bigColor(hours) {
   hours = Math.round(hours);
-  if (hours === 0) return "white";
-  if (hours > 0 && hours <= 25) return "green";
-  if (hours >= 26 && hours <= 55) return "teal";
-  if (hours >= 56 && hours <= 95) return "yellow";
-  if (hours >= 96 && hours <= 125) return "blue";
-  if (hours >= 126 && hours <= 175) return "maroon";
-  return "red";
+  if (hours === 0) return "var(--text-color)";
+  if (hours > 0 && hours <= 25) return "var(--primary-color)";
+  if (hours >= 26 && hours <= 55) return "var(--teal-color)";
+  if (hours >= 56 && hours <= 95) return "var(--yellow-color)";
+  if (hours >= 96 && hours <= 125) return "var(--secondary-color)";
+  if (hours >= 126 && hours <= 175) return "var(--maroon-color)";
+  return "var(--red-color)";
 }
 function invertedBigColor(hours) {
   hours = Math.round(hours);
-  if (hours >= 176 && hours <= 255) return "teal";
-  if (hours >= 126 && hours <= 175) return "yellow";
-  if (hours >= 56 && hours <= 125) return "blue";
-  if (hours >= 26 && hours <= 55) return "maroon";
-  if (hours > 0 && hours <= 25) return "red";
-  return "green";
+  if (hours >= 176 && hours <= 255) return "var(--teal-color)";
+  if (hours >= 126 && hours <= 175) return "var(--yellow-color)";
+  if (hours >= 56 && hours <= 125) return "var(--secondary-color)";
+  if (hours >= 26 && hours <= 55) return "var(--maroon-color)";
+  if (hours > 0 && hours <= 25) return "var(--red-color)";
+  return "var(--primary-color)";
 }
 
 function percentColor(percent) {
   percent = Math.round(percent);
-  if (percent === 100) return "white";
-  if (percent <= 99 && percent >= 80) return "green";
-  if (percent <= 79 && percent >= 60) return "teal";
-  if (percent <= 59 && percent >= 40) return "yellow";
-  if (percent <= 39 && percent >= 21) return "blue";
-  if (percent <= 20 && percent >= 1) return "maroon";
-  if (percent <= 19) return "red";
+  if (percent === 100) return "var(--text-color)";
+  if (percent <= 99 && percent >= 80) return "var(--primary-color)";
+  if (percent <= 79 && percent >= 60) return "var(--teal-color)";
+  if (percent <= 59 && percent >= 40) return "var(--yellow-color)";
+  if (percent <= 39 && percent >= 21) return "var(--secondary-color)";
+  if (percent <= 20 && percent >= 1) return "var(--maroon-color)";
+  if (percent <= 19) return "var(--red-color)";
 }
 function invertedPercentColor(percent) {
   percent = Math.round(percent);
-  if (percent < 1) return "white";
-  if (percent <= 20 && percent >= 1) return "green";
-  if (percent <= 39 && percent >= 21) return "teal";
-  if (percent <= 59 && percent >= 40) return "yellow";
-  if (percent <= 79 && percent >= 60) return "blue";
-  if (percent <= 90 && percent >= 80) return "maroon";
-  if (percent <= 100 && percent >= 91) return "red";
+  if (percent < 1) return "var(--text-color)";
+  if (percent <= 20 && percent >= 1) return "var(--primary-color)";
+  if (percent <= 39 && percent >= 21) return "var(--teal-color)";
+  if (percent <= 59 && percent >= 40) return "var(--yellow-color)";
+  if (percent <= 79 && percent >= 60) return "var(--secondary-color)";
+  if (percent <= 90 && percent >= 80) return "var(--maroon-color)";
+  if (percent <= 100 && percent >= 91) return "var(--red-color)";
 }
 
 function removeCourse(courses, index) {
