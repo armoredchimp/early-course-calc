@@ -255,15 +255,47 @@ function getColor(hours) {
   if (hours >= 26 && hours <= 35) return "maroon";
   return "red";
 }
+function bigColor(hours) {
+  hours = Math.round(hours);
+  if (hours === 0) return "white";
+  if (hours > 0 && hours <= 25) return "green";
+  if (hours >= 26 && hours <= 55) return "teal";
+  if (hours >= 56 && hours <= 95) return "yellow";
+  if (hours >= 96 && hours <= 125) return "blue";
+  if (hours >= 126 && hours <= 175) return "maroon";
+  return "red";
+}
+function invertedBigColor(hours) {
+  hours = Math.round(hours);
+  if (hours >= 176 && hours <= 255) return "teal";
+  if (hours >= 126 && hours <= 175) return "yellow";
+  if (hours >= 56 && hours <= 125) return "blue";
+  if (hours >= 26 && hours <= 55) return "maroon";
+  if (hours > 0 && hours <= 25) return "red";
+  return "green";
+}
+
 function percentColor(percent) {
   percent = Math.round(percent);
   if (percent === 100) return "white";
   if (percent <= 99 && percent >= 80) return "green";
-  if (percent <= 79 && percent >= 60) return "yellow";
-  if (percent <= 59 && percent >= 40) return "blue";
-  if (percent <= 39 && percent >= 1) return "maroon";
+  if (percent <= 79 && percent >= 60) return "teal";
+  if (percent <= 59 && percent >= 40) return "yellow";
+  if (percent <= 39 && percent >= 21) return "blue";
+  if (percent <= 20 && percent >= 1) return "maroon";
   if (percent <= 19) return "red";
 }
+function invertedPercentColor(percent) {
+  percent = Math.round(percent);
+  if (percent < 1) return "white";
+  if (percent <= 20 && percent >= 1) return "green";
+  if (percent <= 39 && percent >= 21) return "teal";
+  if (percent <= 59 && percent >= 40) return "yellow";
+  if (percent <= 79 && percent >= 60) return "blue";
+  if (percent <= 90 && percent >= 80) return "maroon";
+  if (percent <= 100 && percent >= 91) return "red";
+}
+
 function removeCourse(courses, index) {
   courses.splice(index, 1);
   courseLoad(courses, courses);
@@ -333,13 +365,23 @@ const courseLoad = function (displayCourses, allCourses) {
       Math.round((100 - completedPercentage) * 100) / 100;
     let remainingHours =
       Math.round((totalCourseHours - totalHours) * 100) / 100;
-
-    let text = `${totalHours.toFixed(
+    let colorT = invertedBigColor(totalHours.toFixed(2));
+    let colorGT = invertedBigColor(totalCourseHours);
+    let colorC = percentColor(completedPercentage);
+    let colorRtotal = bigColor(remainingHours);
+    let colorInvPercent = invertedPercentColor(remainingPercentage);
+    let list = document.createElement("ul");
+    list.innerHTML = `
+      <li class="completed-list" style="margin-top: 4rem;"><span style="color:${colorT};">${totalHours.toFixed(
       2
-    )} hours out of ${totalCourseHours} in total have been completed, and ${remainingHours} remain. ${completedPercentage}% of the course has been completed. ${remainingPercentage}% of the course remains to be completed.`;
+    )}</span> hours out of <span style="color:${colorGT};">${totalCourseHours}</span> in total have been completed</li>
+      <li class="completed-list"><span style="color:${colorRtotal};">${remainingHours}</span> hours remain</li>
+      <li class="completed-list"><span style="color: ${colorC};">${completedPercentage}%</span> of the course has been completed</li>
+      <li class="completed-list"><span style="color:${colorInvPercent};">${remainingPercentage}%</span> of the course remains to be completed</li>
+    `;
 
-    console.log(text);
-    result.innerHTML = text;
+    result.innerHTML = ""; // Clear previous content
+    result.appendChild(list);
   }
   completed();
 };

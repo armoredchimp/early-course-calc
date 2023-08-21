@@ -1,3 +1,5 @@
+.008e
+-moved completed report to a list, and added colors to the various values within. Color scheme selection is definitely next.
 .008d
 -added sort button with icons for ascending/descending order, as well as criteria selector. surprisingly bug free for now..
 .008c
