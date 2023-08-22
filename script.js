@@ -109,13 +109,13 @@ function toggleSortIcon() {
 }
 sortBtn.addEventListener("click", () => {
   ascending = !ascending;
-  sortCourses(myCourses);
+  sortCourses(allCourses);
   toggleSortIcon();
 });
 
 sortCriteria.addEventListener("change", () => {
   ascending = false;
-  sortCourses(myCourses, sortCriteria.value);
+  sortCourses(allCourses, sortCriteria.value);
   toggleSortIcon();
 });
 toggleBtn.addEventListener("click", () => {
@@ -124,9 +124,9 @@ toggleBtn.addEventListener("click", () => {
     ? "fas fa-toggle-on"
     : "fas fa-toggle-off";
   const displayCourses = showCompletedCourses
-    ? myCourses
-    : myCourses.filter((course) => course.progress < 100);
-  courseLoad(displayCourses, myCourses);
+    ? allCourses
+    : allCourses.filter((course) => course.progress < 100);
+  courseLoad(displayCourses, allCourses);
 });
 colorScheme.addEventListener("change", () => {
   if (currentColorScheme) {
@@ -150,32 +150,6 @@ window.onclick = (event) => {
     editModal.style.display = "none";
   }
 };
-// function editCourse(courses, index) {
-//   editModal.style.display = "block";
-//   let courseNameC = document.getElementById("courseNameE");
-//   let totalHoursC = document.getElementById("totalHoursE");
-//   let percentCompC = document.getElementById("percentComp");
-//   courseNameC.value = courses[index].name;
-//   totalHoursC.value = courses[index].totalHours;
-//   percentCompC.value = courses[index].progress;
-//   editCourseBtn.addEventListener("click", () => {
-//     const updatedCourseName = courseNameC.value;
-//     const updatedTotalHours = Number(totalHoursC.value);
-//     const updatedProgress = Number(percentCompC.value);
-
-//     // Check for correct percent value
-//     if (updatedProgress < 0 || updatedProgress > 100) {
-//       alert("Must enter a percentage from 0-100.");
-//       percentCompC.value = updatedProgress; // Keep the incorrect value in the input field
-//     } else {
-//       courses[index].name = updatedCourseName;
-//       courses[index].totalHours = updatedTotalHours;
-//       courses[index].progress = updatedProgress;
-//       courseLoad(courses);
-//       editModal.style.display = "none"; // Close the edit modal only when values are correct
-//     }
-//   });
-// }
 function sortCourses(displayCourses) {
   const selectedCriteria = sortCriteria.value;
   displayCourses.sort((a, b) => {
@@ -240,8 +214,8 @@ addCourseBtn.addEventListener("click", () => {
   const courseName = document.getElementById("courseName").value;
   const totalHours = Number(document.getElementById("totalHours").value);
   const newCourse = new Course(courseName, totalHours);
-  myCourses.push(newCourse);
-  courseLoad(myCourses, myCourses); // update the course list
+  allCourses.push(newCourse);
+  courseLoad(allCourses, allCourses); // update the course list
   modal.style.display = "none"; // close the modal
 });
 class Course {
@@ -309,14 +283,20 @@ function invertedPercentColor(percent) {
   if (percent <= 100 && percent >= 91) return "var(--red-color)";
 }
 
-function removeCourse(courses, index) {
-  courses.splice(index, 1);
-  courseLoad(courses, courses);
+function removeCourse(displayCourses, allCourses, index) {
+  if (!showCompletedCourses) {
+    displayCourses.splice(index, 1);
+    allCourses.splice(index, 1);
+  } else {
+    displayCourses.splice(index, 1);
+  }
+  courseLoad(displayCourses, allCourses);
 }
 function resetProgress(displayCourses, allCourses, index) {
   displayCourses[index].progress = 0;
   courseLoad(displayCourses, allCourses);
 }
+
 const courseLoad = function (displayCourses, allCourses) {
   let totalHours = 0;
   let totalCourseHours = 0;
@@ -360,7 +340,7 @@ const courseLoad = function (displayCourses, allCourses) {
     svgMI.style.marginRight = "2rem";
     courseUL.appendChild(listItem);
     svgMI.addEventListener("click", () => {
-      removeCourse(displayCourses, index);
+      removeCourse(displayCourses, allCourses, index);
     });
     let resetBtn = listItem.querySelector(".reset-button");
     resetBtn.addEventListener("click", () => {
@@ -372,12 +352,17 @@ const courseLoad = function (displayCourses, allCourses) {
     });
   });
   function completed() {
-    let completedPercentage =
-      Math.round((totalHours / totalCourseHours) * 100 * 100) / 100;
-    let remainingPercentage =
-      Math.round((100 - completedPercentage) * 100) / 100;
-    let remainingHours =
-      Math.round((totalCourseHours - totalHours) * 100) / 100;
+    let completedPercentage, remainingPercentage, remainingHours;
+    if (totalCourseHours === 0) {
+      completedPercentage = 0;
+      remainingPercentage = 0;
+      remainingHours = 0;
+    } else {
+      completedPercentage =
+        Math.round((totalHours / totalCourseHours) * 100 * 100) / 100;
+      remainingPercentage = Math.round((100 - completedPercentage) * 100) / 100;
+      remainingHours = Math.round((totalCourseHours - totalHours) * 100) / 100;
+    }
     let colorT = invertedBigColor(totalHours.toFixed(2));
     let colorGT = invertedBigColor(totalCourseHours);
     let colorC = percentColor(completedPercentage);
@@ -400,7 +385,7 @@ const courseLoad = function (displayCourses, allCourses) {
 };
 
 // Sample course load:
-let myCourses = [
+let allCourses = [
   new Course("JavaScript", 61, 98),
   new Course("HTML/CSS", 37, 100),
   new Course("AWS", 14, 100),
@@ -414,4 +399,4 @@ let myCourses = [
   new Course("Svelte", 32, 0),
 ];
 
-courseLoad(myCourses, myCourses);
+courseLoad(allCourses, allCourses);

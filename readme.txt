@@ -1,3 +1,5 @@
+.01 8/22/23
+- after much bug fixing, finally seem to have the completed toggle and final report working correctly. I'm sure there are more.
 .009a 
 - further work on color schemes, added simple scheme and made dark mode the default. Encountered major bug when list is cleared with NaN, next on the list.
 .009 8/21/23
