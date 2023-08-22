@@ -5,26 +5,27 @@ body {
   color: var(--text-color);
 }
 :root {
-  --primary-color: #0c7e2e;
-  --background-color: #eeeeee;
-  --secondary-color: #756ad8;
-  --text-color: black;
-  --white-color: #ffffff;
-  --yellow-color: #b47b00;
+  --primary-color: #3084ce;
+  --background-color: #121212;
+  --secondary-color: #8074e9;
+  --text-color: #ffffff;
+  --white-color: black;
+  --yellow-color: #e94560;
   /* --blue-color: #3d1df1; */
-  --maroon-color: #c73509;
+  --maroon-color: #cf4e27;
   --red-color: #f51111;
-  --teal-color: #067c6c;
-  --highlight-color: rgba(159, 219, 159, 0.336);
-  --gold-color: #0c7e2e;
-  --gold2-color: #b47b00;
+  --teal-color: #11bba4;
+  --highlight-color: rgba(127, 214, 192, 0.336);
+  --gold-color: #2c74b3;
+  --gold2-color: #756ad8;
+  --minus-color: #ddd7d79f;
 }
 .colorful {
   --primary-color: #0c7e2e;
   --background-color: #eeeeee;
   --secondary-color: #756ad8;
   --text-color: black;
-  --white-color: #ffffff;
+  --white-color: #f8f1f1;
   --yellow-color: #b47b00;
   /* --blue-color: #3d1df1; */
   --maroon-color: #c73509;
@@ -33,6 +34,7 @@ body {
   --highlight-color: rgba(159, 219, 159, 0.336);
   --gold-color: #0c7e2e;
   --gold2-color: #b47b00;
+  --hover-color: #ffffff;
 }
 .dark {
   --primary-color: #2c74b3;
@@ -44,9 +46,27 @@ body {
   /* --blue-color: #3d1df1; */
   --maroon-color: #c73509;
   --red-color: #f51111;
-  --teal-color: #067c6c;
+  --teal-color: #11bba4;
+  --highlight-color: rgba(127, 214, 192, 0.336);
   --gold-color: #2c74b3;
   --gold2-color: #756ad8;
+  --hover-color: #ffffff;
+}
+.simple {
+  --primary-color: #344b69;
+  --background-color: #f5efe7;
+  --secondary-color: #213555;
+  --text-color: black;
+  --white-color: #f8f1f1;
+  --yellow-color: #344b69;
+  /* --blue-color: #3d1df1; */
+  --maroon-color: #213555;
+  --red-color: #213555;
+  --teal-color: #344b69;
+  --highlight-color: rgba(159, 219, 159, 0.336);
+  --gold-color: #2c74b3;
+  --gold2-color: #0c7e6b;
+  --hover-color: #ffffff;
 }
 li {
   margin-bottom: 2rem;
@@ -57,7 +77,7 @@ li {
 li:not(.completed-list):hover {
   background-color: #212b35;
   border-radius: 15px;
-  color: var(--white-color);
+  color: var(--hover-color);
 }
 ul {
   list-style: none;
@@ -163,13 +183,14 @@ h1 {
   cursor: pointer;
 }
 .minus-icon:hover {
-  color: blue;
+  color: var(--minus-color);
 }
 .reset-button,
 .edit-button {
   padding: 0.5rem;
   border-radius: 3px;
   border: none;
+  color: var(--white-color);
 }
 .reset-button {
   /* background-color: rgb(143, 88, 26); */

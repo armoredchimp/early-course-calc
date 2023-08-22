@@ -1,3 +1,5 @@
+.009a 
+- further work on color schemes, added simple scheme and made dark mode the default. Encountered major bug when list is cleared with NaN, next on the list.
 .009 8/21/23
 - added color scheme selector, basic dark mode. 
 - changed various colors, still much to do
