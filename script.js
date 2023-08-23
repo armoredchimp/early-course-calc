@@ -251,16 +251,16 @@ function bigColor(hours) {
   if (hours === 0) return "var(--text-color)";
   if (hours > 0 && hours <= 25) return "var(--primary-color)";
   if (hours >= 26 && hours <= 55) return "var(--teal-color)";
-  if (hours >= 56 && hours <= 95) return "var(--yellow-color)";
-  if (hours >= 96 && hours <= 125) return "var(--secondary-color)";
+  if (hours >= 56 && hours <= 95) return "var(--secondary-color)";
+  if (hours >= 96 && hours <= 125) return "var(--yellow-color)";
   if (hours >= 126 && hours <= 175) return "var(--maroon-color)";
   return "var(--red-color)";
 }
 function invertedBigColor(hours) {
   hours = Math.round(hours);
   if (hours >= 176 && hours <= 255) return "var(--teal-color)";
-  if (hours >= 126 && hours <= 175) return "var(--yellow-color)";
-  if (hours >= 56 && hours <= 125) return "var(--secondary-color)";
+  if (hours >= 126 && hours <= 175) return "var(--secondary-color)";
+  if (hours >= 56 && hours <= 125) return "var(--yellow-color)";
   if (hours >= 26 && hours <= 55) return "var(--maroon-color)";
   if (hours > 0 && hours <= 25) return "var(--red-color)";
   return "var(--primary-color)";
