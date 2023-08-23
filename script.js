@@ -98,6 +98,9 @@ const colorScheme = document.getElementById("colorScheme");
 let showCompletedCourses = true;
 let ascending = false;
 let currentColorScheme = "";
+let minusColor = getComputedStyle(document.body).getPropertyValue(
+  "--minus-color"
+);
 function toggleSortIcon() {
   if (ascending) {
     ascendIcon.style.display = "none";
@@ -135,6 +138,7 @@ colorScheme.addEventListener("change", () => {
   currentColorScheme = colorScheme.value;
   document.body.classList.add(`${currentColorScheme}`);
 });
+
 addNew.addEventListener("click", () => {
   modal.style.display = "block";
 });
@@ -392,7 +396,7 @@ let allCourses = [
   new Course("Linux", 12, 100),
   new Course("Aplus", 45, 100),
   new Course("AWS DVA", 32, 90),
-  new Course("SQL", 22, 60),
+  new Course("SQL", 22, 65),
   new Course("Kubernetes", 28, 10),
   new Course("TypeScript", 15, 1),
   new Course("Node", 35, 15),

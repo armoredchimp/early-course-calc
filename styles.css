@@ -14,7 +14,7 @@ body {
   /* --blue-color: #3d1df1; */
   --maroon-color: #cf4e27;
   --red-color: #f51111;
-  --teal-color: #11bba4;
+  --teal-color: #16e4c8;
   --highlight-color: rgba(127, 214, 192, 0.336);
   --gold-color: #2c74b3;
   --gold2-color: #756ad8;
@@ -22,7 +22,7 @@ body {
 }
 .colorful {
   --primary-color: #0c7e2e;
-  --background-color: #eeeeee;
+  --background-color: #eeeae5;
   --secondary-color: #756ad8;
   --text-color: black;
   --white-color: #f8f1f1;
@@ -35,7 +35,9 @@ body {
   --gold-color: #0c7e2e;
   --gold2-color: #b47b00;
   --hover-color: #ffffff;
+  --minus-color: #ddd7d79f;
 }
+
 .dark {
   --primary-color: #2c74b3;
   --background-color: #121212;
@@ -51,6 +53,7 @@ body {
   --gold-color: #2c74b3;
   --gold2-color: #756ad8;
   --hover-color: #ffffff;
+  --minus-color: #ddd7d79f;
 }
 .simple {
   --primary-color: #344b69;
@@ -67,7 +70,9 @@ body {
   --gold-color: #2c74b3;
   --gold2-color: #0c7e6b;
   --hover-color: #ffffff;
+  --minus-color: #ddd7d79f;
 }
+
 li {
   margin-bottom: 2rem;
   display: flex;
@@ -79,6 +84,11 @@ li:not(.completed-list):hover {
   border-radius: 15px;
   color: var(--hover-color);
 }
+li:hover,
+li:hover *:not(.minus-icon) {
+  color: var(--hover-color) !important;
+}
+
 ul {
   list-style: none;
 }
@@ -182,9 +192,9 @@ h1 {
   width: 100%;
   cursor: pointer;
 }
-.minus-icon:hover {
-  color: var(--minus-color);
-}
+/* .minus-icon:hover {
+  color: var(--minus-color) !important;  ////// Disabled because I could not get it to work beyond the starting color scheme...frustrating!
+} */
 .reset-button,
 .edit-button {
   padding: 0.5rem;

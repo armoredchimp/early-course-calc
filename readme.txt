@@ -1,3 +1,6 @@
+.01a
+- fixed text when hovering so all dynamic values are automatically --text-color, for readability
+- removed minus hover effect because I could not get it to work with other color schemes, after fixing the text. Frustrating
 .01 8/22/23
 - after much bug fixing, finally seem to have the completed toggle and final report working correctly. I'm sure there are more.
 .009a 
