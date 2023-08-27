@@ -437,7 +437,7 @@ const courseLoad = function (displayCourses, allCourses) {
 
 // Sample course load:
 let allCourses = [
-  new Course("JavaScript", 61, 98),
+  new Course("JavaScript", 61, 100),
   new Course("HTML/CSS", 37, 100),
   new Course("AWS", 14, 100),
   new Course("Linux", 12, 100),
