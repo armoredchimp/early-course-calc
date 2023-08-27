@@ -387,35 +387,51 @@ const courseLoad = function (displayCourses, allCourses) {
     });
   });
   function completed() {
-    let completedPercentage, remainingPercentage, remainingHours;
-    if (totalCourseHours === 0) {
-      completedPercentage = 0;
-      remainingPercentage = 0;
+    let completedPercentage = 0,
+      remainingPercentage = 0,
       remainingHours = 0;
-    } else {
+
+    if (totalCourseHours !== 0) {
       completedPercentage =
-        Math.round((totalHours / totalCourseHours) * 100 * 100) / 100;
+        Math.round((totalHours / totalCourseHours) * 10000) / 100;
       remainingPercentage = Math.round((100 - completedPercentage) * 100) / 100;
       remainingHours = Math.round((totalCourseHours - totalHours) * 100) / 100;
     }
-    let colorT = invertedBigColor(totalHours.toFixed(2));
-    let colorGT = invertedBigColor(totalCourseHours);
-    let colorC = percentColor(completedPercentage);
-    let colorRtotal = bigColor(remainingHours);
-    let colorInvPercent = invertedPercentColor(remainingPercentage);
-    let list = document.createElement("ul");
+
+    const list = document.createElement("ul");
     list.innerHTML = `
-      <li class="completed-list" style="margin-top: 4rem;"><span style="color:${colorT};">${totalHours.toFixed(
-      2
-    )}</span> hours out of <span style="color:${colorGT};">${totalCourseHours}</span> in total have been completed</li>
-      <li class="completed-list"><span style="color:${colorRtotal};">${remainingHours}</span> hours remain</li>
-      <li class="completed-list"><span style="color: ${colorC};">${completedPercentage}%</span> of the course has been completed</li>
-      <li class="completed-list"><span style="color:${colorInvPercent};">${remainingPercentage}%</span> of the course remains to be completed</li>
+      <li class="completed-list" style="margin-top: 4rem;">
+        <span style="color:${invertedBigColor(
+          totalHours.toFixed(2)
+        )};">${totalHours.toFixed(2)}</span> 
+        hours out of <span style="color:${invertedBigColor(
+          totalCourseHours
+        )};">${totalCourseHours}</span> 
+        in total have been completed
+      </li>
+      <li class="completed-list">
+        <span style="color:${bigColor(
+          remainingHours
+        )};">${remainingHours}</span> hours remain
+      </li>
+      <li class="completed-list">
+        <span style="color:${percentColor(
+          completedPercentage
+        )};">${completedPercentage}%</span> 
+        of the course has been completed
+      </li>
+      <li class="completed-list">
+        <span style="color:${invertedPercentColor(
+          remainingPercentage
+        )};">${remainingPercentage}%</span> 
+        of the course remains to be completed
+      </li>
     `;
 
     result.innerHTML = ""; // Clear previous content
     result.appendChild(list);
   }
+
   completed();
 };
 
