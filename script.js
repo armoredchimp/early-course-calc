@@ -446,7 +446,7 @@ let allCourses = [
   new Course("SQL", 22, 65),
   new Course("Kubernetes", 28, 10),
   new Course("TypeScript", 15, 1),
-  new Course("Node", 35, 15),
+  new Course("Node", 35, 20),
   new Course("Svelte", 32, 0),
 ];
 
