@@ -207,10 +207,26 @@ function editCourse(displayCourses, allCourses, index) {
   const courseNameC = document.getElementById("courseNameE");
   const totalHoursC = document.getElementById("totalHoursE");
   const percentCompC = document.getElementById("percentComp");
+  const hoursC = document.getElementById("totalHoursC");
+  // Initialize the modal with current values for selected course
   courseNameC.value = displayCourses[index].name;
   totalHoursC.value = displayCourses[index].totalHours;
   percentCompC.value = displayCourses[index].progress;
+  hoursC.value = displayCourses[index].completedHours();
 
+  percentCompC.addEventListener("input", function () {
+    // Calculate new completedHours based on new percentComp
+    const newCompletedHours =
+      Math.round((this.value / 100) * totalHoursC.value * 100) / 100;
+    hoursC.value = newCompletedHours;
+  });
+
+  hoursC.addEventListener("input", function () {
+    // Calculate new percent completed based on new completedHours
+    const newPercentComp =
+      Math.round((this.value / totalHoursC.value) * 100 * 100) / 100;
+    percentCompC.value = newPercentComp;
+  });
   // Update the onclick event with the correct index
   editCourseBtn.onclick = () => updateCourse(displayCourses, allCourses, index);
 }
@@ -443,11 +459,12 @@ let allCourses = [
   new Course("Linux", 12, 100),
   new Course("Aplus", 45, 100),
   new Course("AWS DVA", 32, 90),
-  new Course("SQL", 22, 65),
-  new Course("Kubernetes", 28, 10),
+  new Course("SQL", 22, 70),
+  new Course("Kubernetes", 28, 15),
   new Course("TypeScript", 15, 1),
   new Course("Node", 35, 20),
   new Course("Svelte", 32, 0),
+  new Course("Data Str/Algos", 8, 10),
 ];
 
 courseLoad(allCourses, allCourses);

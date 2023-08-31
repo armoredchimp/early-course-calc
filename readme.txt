@@ -1,3 +1,5 @@
+.02 8/30/23
+- added the hours completed input to the edit course modal, with automatic updates connected to % completed
 .01a
 - fixed text when hovering so all dynamic values are automatically --text-color, for readability
 - removed minus hover effect because I could not get it to work with other color schemes, after fixing the text. Frustrating
