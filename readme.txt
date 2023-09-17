@@ -1,3 +1,5 @@
+.02a 9/17/23
+- added the login / register button to the top, doesn't do anything yet
 .02 8/30/23
 - added the hours completed input to the edit course modal, with automatic updates connected to % completed
 .01a

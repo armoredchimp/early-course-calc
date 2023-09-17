@@ -459,14 +459,14 @@ let allCourses = [
   new Course("Linux", 12, 100),
   new Course("Aplus", 45, 100),
   new Course("AWS DVA", 32, 90),
-  new Course("SQL", 22, 75),
+  new Course("SQL", 22, 80),
   new Course("Kubernetes", 28, 15),
   new Course("TypeScript", 15, 1),
-  new Course("Node", 35, 25),
+  new Course("Node", 35, 35),
   new Course("Svelte", 32, 0),
-  new Course("Data Str/Algos", 8, 40),
+  new Course("Data Str/Algos", 8, 55),
   new Course("Terraform", 8, 5),
-  new Course("Python", 58, 1),
+  new Course("Python", 58, 5),
 ];
 
 courseLoad(allCourses, allCourses);
