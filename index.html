@@ -19,67 +19,76 @@
   <body>
     <div class="title-cont">
       <div></div>
-      <h1>Course calculator version <span class="version-num">0.02</span></h1>
+      <h1>Course calculator version <span class="version-num">0.03</span></h1>
       <div class="sign-in">
         <button class="login">Login / Register</button>
         <!-- <button class="register">Register</button> -->
       </div>
     </div>
-
-    <div class="top-cont">
-      <div class="sort-cont">
-        <div class="sort-icon">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="sort asc"
-            id="ascend-icon"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M3 4.5h14.25M3 9h9.75M3 13.5h5.25m5.25-.75L17.25 9m0 0L21 12.75M17.25 9v12"
-            />
-          </svg>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="sort desc"
-            id="descend-icon"
-            style="display: none"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M3 4.5h14.25M3 9h9.75M3 13.5h9.75m4.5-4.5v12m0 0l-3.75-3.75M17.25 21L21 17.25"
-            />
-          </svg>
+    <div class="ultra-cont">
+      <div class="top-cont">
+        <div class="sort-cont">
+          <div class="sort-icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="sort asc"
+              id="ascend-icon"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3 4.5h14.25M3 9h9.75M3 13.5h5.25m5.25-.75L17.25 9m0 0L21 12.75M17.25 9v12"
+              />
+            </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="sort desc"
+              id="descend-icon"
+              style="display: none"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3 4.5h14.25M3 9h9.75M3 13.5h9.75m4.5-4.5v12m0 0l-3.75-3.75M17.25 21L21 17.25"
+              />
+            </svg>
+          </div>
+          <label for="sortCriteria">Sort by:</label>
+          <select id="sortCriteria" class="sortCriteria">
+            <option value="progress">% Complete</option>
+            <option value="hoursRemaining">Remaining</option>
+          </select>
         </div>
-        <label for="sortCriteria">Sort by:</label>
-        <select id="sortCriteria" class="sortCriteria">
-          <option value="progress">% Complete</option>
-          <option value="hoursRemaining">Remaining</option>
-        </select>
+        <div class="toggle-complete-wrapper">
+          <span>Show completed courses</span>
+          <button id="toggle-completed" class="fas fa-toggle-on"></button>
+        </div>
+        <div class="color-wrapper">
+          <label for="colorScheme">Color Scheme</label>
+          <select id="colorScheme" class="hidden-dropdown">
+            <option value="dark">Dark Mode</option>
+            <option value="colorful">Colorful</option>
+            <option value="simple">Simple</option>
+          </select>
+        </div>
+        <button class="add-new">Add Course</button>
       </div>
-      <div class="toggle-complete-wrapper">
-        <span>Show completed courses</span>
-        <button id="toggle-completed" class="fas fa-toggle-on"></button>
+      <div class="message-cont">
+        <h4>No courses loaded</h4>
+        <h3 class="addLink highlighted-1">Add a new course</h3>
+        <p>or</p>
+        <h3 class="sampleLink highlighted-2">
+          Click here to load a sample courseload
+        </h3>
       </div>
-      <div class="color-wrapper">
-        <label for="colorScheme">Color Scheme</label>
-        <select id="colorScheme" class="hidden-dropdown">
-          <option value="dark">Dark Mode</option>
-          <option value="colorful">Colorful</option>
-          <option value="simple">Simple</option>
-        </select>
-      </div>
-      <button class="add-new">Add Course</button>
     </div>
     <ul class="course"></ul>
     <p class="result"></p>

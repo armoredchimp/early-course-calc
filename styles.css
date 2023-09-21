@@ -219,12 +219,26 @@ h1 {
 .edit-button:active {
   background-color: rgb(67, 143, 86);
 }
+.ultra-cont {
+  position: relative;
+}
 .top-cont {
   display: flex;
   justify-content: space-between;
   margin-left: 2rem;
   margin-right: 2rem;
   margin-bottom: 2rem;
+}
+.message-cont {
+  position: absolute;
+  color: var(--text-color);
+  bottom: 10rem;
+  left: 0;
+  right: 0;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 20rem;
 }
 .add-new {
   padding: 0.6rem;
@@ -318,6 +332,11 @@ h3 {
   margin-bottom: 3rem;
   color: var(--primary-color);
 }
+h4 {
+  font-weight: 500;
+  margin-bottom: 3rem;
+  color: var(--text-color);
+}
 .sign-in {
   margin-top: 1rem;
   margin-right: 1rem;
@@ -350,4 +369,17 @@ h3 {
 .register:hover,
 .register:active {
   background-color: var(--yellow-color);
+}
+.sampler {
+  padding-bottom: 40rem !important;
+}
+.highlighted-1 {
+  color: var(--primary-color);
+
+  cursor: pointer;
+}
+.highlighted-2 {
+  color: var(--secondary-color);
+
+  cursor: pointer;
 }

@@ -91,10 +91,15 @@ const addCourseBtn = document.getElementById("addCourseBtn");
 const editCourseBtn = document.getElementById("editCourseBtn");
 const toggleBtn = document.getElementById("toggle-completed");
 const sortBtn = document.querySelector(".sort-icon");
+const ultraCont = document.querySelector(".ultra-cont");
+const messageCont = document.querySelector(".message-cont");
 const ascendIcon = document.getElementById("ascend-icon");
 const descendIcon = document.getElementById("descend-icon");
 const sortCriteria = document.getElementById("sortCriteria");
 const colorScheme = document.getElementById("colorScheme");
+const addLink = document.querySelector(".addLink");
+const sampleLink = document.querySelector(".sampleLink");
+
 let showCompletedCourses = true;
 let ascending = false;
 let currentColorScheme = "";
@@ -138,7 +143,14 @@ colorScheme.addEventListener("change", () => {
   currentColorScheme = colorScheme.value;
   document.body.classList.add(`${currentColorScheme}`);
 });
-
+sampleLink.addEventListener("click", () => {
+  sampleClose();
+  courseLoad(sampleCourses, sampleCourses);
+  allCourses.splice(0, allCourses.length, ...sampleCourses);
+});
+addLink.addEventListener("click", () => {
+  modal.style.display = "block";
+});
 addNew.addEventListener("click", () => {
   modal.style.display = "block";
 });
@@ -237,6 +249,7 @@ addCourseBtn.addEventListener("click", () => {
   allCourses.push(newCourse);
   courseLoad(allCourses, allCourses); // update the course list
   modal.style.display = "none"; // close the modal
+  sampleClose();
 });
 class Course {
   constructor(name, totalHours, progress = 0) {
@@ -334,6 +347,15 @@ function invertedPercentColor(percent) {
     : "var(--red-color)";
 }
 
+function samplePrompt() {
+  ultraCont.classList.add("sampler");
+  messageCont.style.display = "flex";
+}
+function sampleClose() {
+  ultraCont.classList.remove("sampler");
+  messageCont.style.display = "none";
+}
+
 function removeCourse(displayCourses, allCourses, index) {
   if (!showCompletedCourses) {
     displayCourses.splice(index, 1);
@@ -342,7 +364,11 @@ function removeCourse(displayCourses, allCourses, index) {
     displayCourses.splice(index, 1);
   }
   courseLoad(displayCourses, allCourses);
+  if (displayCourses.length === 0) {
+    samplePrompt();
+  }
 }
+
 function resetProgress(displayCourses, allCourses, index) {
   displayCourses[index].progress = 0;
   courseLoad(displayCourses, allCourses);
@@ -450,9 +476,9 @@ const courseLoad = function (displayCourses, allCourses) {
 
   completed();
 };
-
+let allCourses = [];
 // Sample course load:
-let allCourses = [
+let sampleCourses = [
   new Course("JavaScript", 61, 100),
   new Course("HTML/CSS", 37, 100),
   new Course("AWS", 14, 100),
@@ -462,11 +488,13 @@ let allCourses = [
   new Course("SQL", 22, 80),
   new Course("Kubernetes", 28, 15),
   new Course("TypeScript", 15, 1),
-  new Course("Node", 35, 35),
+  new Course("Node", 35, 40),
   new Course("Svelte", 32, 0),
-  new Course("Data Str/Algos", 8, 55),
+  new Course("Data Str/Algos", 8, 80),
   new Course("Terraform", 8, 5),
-  new Course("Python", 58, 5),
+  new Course("Python", 58, 10),
 ];
-
-courseLoad(allCourses, allCourses);
+let blankCourses = [];
+samplePrompt();
+courseLoad(blankCourses, blankCourses);
+// courseLoad(allCourses, allCourses);

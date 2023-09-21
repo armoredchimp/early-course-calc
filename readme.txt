@@ -1,3 +1,5 @@
+.03 9/21/23
+- changed start screen to load blank courseload, with links to add new or to sample (my)courseload. Bugs remain I think
 .02a 9/17/23
 - added the login / register button to the top, doesn't do anything yet
 .02 8/30/23
