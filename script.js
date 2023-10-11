@@ -485,14 +485,14 @@ let sampleCourses = [
   new Course("Linux", 12, 100),
   new Course("Aplus", 45, 100),
   new Course("AWS DVA", 32, 90),
-  new Course("SQL", 22, 80),
+  new Course("SQL", 22, 95),
   new Course("Kubernetes", 28, 15),
-  new Course("TypeScript", 15, 1),
-  new Course("Node", 35, 40),
+  new Course("TypeScript", 15, 5),
+  new Course("Node", 35, 50),
   new Course("Svelte", 32, 0),
-  new Course("Data Str/Algos", 8, 80),
+  new Course("Data Str/Algos", 8, 100),
   new Course("Terraform", 8, 5),
-  new Course("Python", 58, 10),
+  new Course("Python", 58, 15),
 ];
 let blankCourses = [];
 samplePrompt();
