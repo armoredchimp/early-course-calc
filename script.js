@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 // My original hard-coded version
 // const courseLoad = function (js, htcs, aws, lin) {
@@ -80,90 +80,90 @@
 //     } remain. ${completedPercentage}% of the course has been completed. ${remainingPercentage}% of the course remains to be completed.`
 //   );
 // };
-const courseUL = document.querySelector(".course");
-const result = document.querySelector(".result");
-const addNew = document.querySelector(".add-new");
-const modal = document.querySelector(".modal");
-const editModal = document.querySelector(".modal-edit");
-const closeBtn = document.querySelector(".close");
-const closeBtnE = document.querySelector(".closeE");
-const addCourseBtn = document.getElementById("addCourseBtn");
-const editCourseBtn = document.getElementById("editCourseBtn");
-const toggleBtn = document.getElementById("toggle-completed");
-const sortBtn = document.querySelector(".sort-icon");
-const ultraCont = document.querySelector(".ultra-cont");
-const messageCont = document.querySelector(".message-cont");
-const ascendIcon = document.getElementById("ascend-icon");
-const descendIcon = document.getElementById("descend-icon");
-const sortCriteria = document.getElementById("sortCriteria");
-const colorScheme = document.getElementById("colorScheme");
-const addLink = document.querySelector(".addLink");
-const sampleLink = document.querySelector(".sampleLink");
+const courseUL = document.querySelector('.course');
+const result = document.querySelector('.result');
+const addNew = document.querySelector('.add-new');
+const modal = document.querySelector('.modal');
+const editModal = document.querySelector('.modal-edit');
+const closeBtn = document.querySelector('.close');
+const closeBtnE = document.querySelector('.closeE');
+const addCourseBtn = document.getElementById('addCourseBtn');
+const editCourseBtn = document.getElementById('editCourseBtn');
+const toggleBtn = document.getElementById('toggle-completed');
+const sortBtn = document.querySelector('.sort-icon');
+const ultraCont = document.querySelector('.ultra-cont');
+const messageCont = document.querySelector('.message-cont');
+const ascendIcon = document.getElementById('ascend-icon');
+const descendIcon = document.getElementById('descend-icon');
+const sortCriteria = document.getElementById('sortCriteria');
+const colorScheme = document.getElementById('colorScheme');
+const addLink = document.querySelector('.addLink');
+const sampleLink = document.querySelector('.sampleLink');
 
 let showCompletedCourses = true;
 let ascending = false;
-let currentColorScheme = "";
+let currentColorScheme = '';
 let minusColor = getComputedStyle(document.body).getPropertyValue(
-  "--minus-color"
+  '--minus-color'
 );
 function toggleSortIcon() {
   if (ascending) {
-    ascendIcon.style.display = "none";
-    descendIcon.style.display = "inline";
+    ascendIcon.style.display = 'none';
+    descendIcon.style.display = 'inline';
   } else {
-    ascendIcon.style.display = "inline";
-    descendIcon.style.display = "none";
+    ascendIcon.style.display = 'inline';
+    descendIcon.style.display = 'none';
   }
 }
-sortBtn.addEventListener("click", () => {
+sortBtn.addEventListener('click', () => {
   ascending = !ascending;
   sortCourses(allCourses);
   toggleSortIcon();
 });
 
-sortCriteria.addEventListener("change", () => {
+sortCriteria.addEventListener('change', () => {
   ascending = false;
   sortCourses(allCourses, sortCriteria.value);
   toggleSortIcon();
 });
-toggleBtn.addEventListener("click", () => {
+toggleBtn.addEventListener('click', () => {
   showCompletedCourses = !showCompletedCourses;
   toggleBtn.className = showCompletedCourses
-    ? "fas fa-toggle-on"
-    : "fas fa-toggle-off";
+    ? 'fas fa-toggle-on'
+    : 'fas fa-toggle-off';
   const displayCourses = showCompletedCourses
     ? allCourses
     : allCourses.filter((course) => course.progress < 100);
   courseLoad(displayCourses, allCourses);
 });
-colorScheme.addEventListener("change", () => {
+colorScheme.addEventListener('change', () => {
   if (currentColorScheme) {
     document.body.classList.remove(currentColorScheme);
   }
   currentColorScheme = colorScheme.value;
   document.body.classList.add(`${currentColorScheme}`);
 });
-sampleLink.addEventListener("click", () => {
+sampleLink.addEventListener('click', () => {
   sampleClose();
   courseLoad(sampleCourses, sampleCourses);
   allCourses.splice(0, allCourses.length, ...sampleCourses);
 });
-addLink.addEventListener("click", () => {
-  modal.style.display = "block";
+addLink.addEventListener('click', () => {
+  modal.style.display = 'block';
 });
-addNew.addEventListener("click", () => {
-  modal.style.display = "block";
+addNew.addEventListener('click', () => {
+  modal.style.display = 'block';
 });
 closeBtn.onclick = () => {
-  modal.style.display = "none";
+  modal.style.display = 'none';
 };
 closeBtnE.onclick = () => {
-  editModal.style.display = "none";
+  editModal.style.display = 'none';
 };
 window.onclick = (event) => {
   if (event.target === modal || event.target === editModal) {
-    modal.style.display = "none";
-    editModal.style.display = "none";
+    modal.style.display = 'none';
+    editModal.style.display = 'none';
   }
 };
 function sortCourses(displayCourses) {
@@ -171,7 +171,7 @@ function sortCourses(displayCourses) {
   displayCourses.sort((a, b) => {
     let compareA, compareB;
 
-    if (selectedCriteria === "progress") {
+    if (selectedCriteria === 'progress') {
       compareA = a.progress;
       compareB = b.progress;
     } else {
@@ -190,16 +190,16 @@ function sortCourses(displayCourses) {
   courseLoad(coursesToDisplay, displayCourses);
 }
 function updateCourse(displayCourses, allCourses, index) {
-  const courseNameC = document.getElementById("courseNameE");
-  const totalHoursC = document.getElementById("totalHoursE");
-  const percentCompC = document.getElementById("percentComp");
+  const courseNameC = document.getElementById('courseNameE');
+  const totalHoursC = document.getElementById('totalHoursE');
+  const percentCompC = document.getElementById('percentComp');
   const updatedCourseName = courseNameC.value;
   const updatedTotalHours = Number(totalHoursC.value);
   const updatedProgress = Number(percentCompC.value);
 
   // Check for correct percent value
   if (updatedProgress < 0 || updatedProgress > 100) {
-    alert("Must enter a percentage from 0-100.");
+    alert('Must enter a percentage from 0-100.');
     percentCompC.value = updatedProgress; // Keep the incorrect value in the input field
   } else {
     displayCourses[index].name = updatedCourseName;
@@ -210,30 +210,30 @@ function updateCourse(displayCourses, allCourses, index) {
       displayCourses = displayCourses.filter((course) => course.progress < 100);
     }
     courseLoad(displayCourses, allCourses);
-    editModal.style.display = "none"; // Close the edit modal only when values are correct
+    editModal.style.display = 'none'; // Close the edit modal only when values are correct
     // completed();
   }
 }
 function editCourse(displayCourses, allCourses, index) {
-  editModal.style.display = "block";
-  const courseNameC = document.getElementById("courseNameE");
-  const totalHoursC = document.getElementById("totalHoursE");
-  const percentCompC = document.getElementById("percentComp");
-  const hoursC = document.getElementById("totalHoursC");
+  editModal.style.display = 'block';
+  const courseNameC = document.getElementById('courseNameE');
+  const totalHoursC = document.getElementById('totalHoursE');
+  const percentCompC = document.getElementById('percentComp');
+  const hoursC = document.getElementById('totalHoursC');
   // Initialize the modal with current values for selected course
   courseNameC.value = displayCourses[index].name;
   totalHoursC.value = displayCourses[index].totalHours;
   percentCompC.value = displayCourses[index].progress;
   hoursC.value = displayCourses[index].completedHours();
 
-  percentCompC.addEventListener("input", function () {
+  percentCompC.addEventListener('input', function () {
     // Calculate new completedHours based on new percentComp
     const newCompletedHours =
       Math.round((this.value / 100) * totalHoursC.value * 100) / 100;
     hoursC.value = newCompletedHours;
   });
 
-  hoursC.addEventListener("input", function () {
+  hoursC.addEventListener('input', function () {
     // Calculate new percent completed based on new completedHours
     const newPercentComp =
       Math.round((this.value / totalHoursC.value) * 100 * 100) / 100;
@@ -242,13 +242,13 @@ function editCourse(displayCourses, allCourses, index) {
   // Update the onclick event with the correct index
   editCourseBtn.onclick = () => updateCourse(displayCourses, allCourses, index);
 }
-addCourseBtn.addEventListener("click", () => {
-  const courseName = document.getElementById("courseName").value;
-  const totalHours = Number(document.getElementById("totalHours").value);
+addCourseBtn.addEventListener('click', () => {
+  const courseName = document.getElementById('courseName').value;
+  const totalHours = Number(document.getElementById('totalHours').value);
   const newCourse = new Course(courseName, totalHours);
   allCourses.push(newCourse);
   courseLoad(allCourses, allCourses); // update the course list
-  modal.style.display = "none"; // close the modal
+  modal.style.display = 'none'; // close the modal
   sampleClose();
 });
 class Course {
@@ -269,91 +269,91 @@ class Course {
 function getColor(hours) {
   hours = Math.round(hours);
   return hours === 0
-    ? "var(--text-color)"
+    ? 'var(--text-color)'
     : hours <= 5
-    ? "var(--primary-color)"
+    ? 'var(--primary-color)'
     : hours <= 15
-    ? "var(--yellow-color)"
+    ? 'var(--yellow-color)'
     : hours <= 25
-    ? "var(--secondary-color)"
+    ? 'var(--secondary-color)'
     : hours <= 35
-    ? "var(--maroon-color)"
-    : "var(--red-color)";
+    ? 'var(--maroon-color)'
+    : 'var(--red-color)';
 }
 
 function bigColor(hours) {
   hours = Math.round(hours);
   return hours === 0
-    ? "var(--text-color)"
+    ? 'var(--text-color)'
     : hours <= 25
-    ? "var(--primary-color)"
+    ? 'var(--primary-color)'
     : hours <= 55
-    ? "var(--teal-color)"
+    ? 'var(--teal-color)'
     : hours <= 95
-    ? "var(--secondary-color)"
+    ? 'var(--secondary-color)'
     : hours <= 125
-    ? "var(--yellow-color)"
+    ? 'var(--yellow-color)'
     : hours <= 175
-    ? "var(--maroon-color)"
-    : "var(--red-color)";
+    ? 'var(--maroon-color)'
+    : 'var(--red-color)';
 }
 
 function invertedBigColor(hours) {
   hours = Math.round(hours);
   return hours >= 176
-    ? "var(--teal-color)"
+    ? 'var(--teal-color)'
     : hours >= 126
-    ? "var(--secondary-color)"
+    ? 'var(--secondary-color)'
     : hours >= 56
-    ? "var(--yellow-color)"
+    ? 'var(--yellow-color)'
     : hours >= 26
-    ? "var(--maroon-color)"
+    ? 'var(--maroon-color)'
     : hours > 0
-    ? "var(--red-color)"
-    : "var(--primary-color)";
+    ? 'var(--red-color)'
+    : 'var(--primary-color)';
 }
 
 function percentColor(percent) {
   percent = Math.round(percent);
   return percent === 100
-    ? "var(--text-color)"
+    ? 'var(--text-color)'
     : percent >= 80
-    ? "var(--primary-color)"
+    ? 'var(--primary-color)'
     : percent >= 60
-    ? "var(--teal-color)"
+    ? 'var(--teal-color)'
     : percent >= 40
-    ? "var(--yellow-color)"
+    ? 'var(--yellow-color)'
     : percent >= 21
-    ? "var(--secondary-color)"
+    ? 'var(--secondary-color)'
     : percent >= 1
-    ? "var(--maroon-color)"
-    : "var(--red-color)";
+    ? 'var(--maroon-color)'
+    : 'var(--red-color)';
 }
 
 function invertedPercentColor(percent) {
   percent = Math.round(percent);
   return percent < 1
-    ? "var(--text-color)"
+    ? 'var(--text-color)'
     : percent <= 20
-    ? "var(--primary-color)"
+    ? 'var(--primary-color)'
     : percent <= 39
-    ? "var(--teal-color)"
+    ? 'var(--teal-color)'
     : percent <= 59
-    ? "var(--yellow-color)"
+    ? 'var(--yellow-color)'
     : percent <= 79
-    ? "var(--secondary-color)"
+    ? 'var(--secondary-color)'
     : percent <= 90
-    ? "var(--maroon-color)"
-    : "var(--red-color)";
+    ? 'var(--maroon-color)'
+    : 'var(--red-color)';
 }
 
 function samplePrompt() {
-  ultraCont.classList.add("sampler");
-  messageCont.style.display = "flex";
+  ultraCont.classList.add('sampler');
+  messageCont.style.display = 'flex';
 }
 function sampleClose() {
-  ultraCont.classList.remove("sampler");
-  messageCont.style.display = "none";
+  ultraCont.classList.remove('sampler');
+  messageCont.style.display = 'none';
 }
 
 function removeCourse(displayCourses, allCourses, index) {
@@ -383,7 +383,7 @@ const courseLoad = function (displayCourses, allCourses) {
     totalCourseHours += course.totalHours;
   });
 
-  courseUL.innerHTML = "";
+  courseUL.innerHTML = '';
 
   displayCourses.forEach((course, index) => {
     let courseHours = course.completedHours();
@@ -393,7 +393,7 @@ const courseLoad = function (displayCourses, allCourses) {
     let colorR = getColor(remainingHours);
     let colorP = percentColor(course.progress);
     let backgroundColor =
-      course.progress === 100 ? "var(--highlight-color);" : "";
+      course.progress === 100 ? 'var(--highlight-color);' : '';
     let courseR = `<div class="course-line" style="display: flex; justify-content: space-between; background-color: ${backgroundColor}; border-radius: 15px; padding: 0.5rem; padding-left: 1rem; width: 100%;">
     <div style="display: flex; align-items: center; gap: 0.3rem; font-size: 1rem;"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="minus-icon">
     <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -410,21 +410,21 @@ const courseLoad = function (displayCourses, allCourses) {
     </div>
   </div>`;
 
-    let listItem = document.createElement("li");
+    let listItem = document.createElement('li');
     listItem.innerHTML = courseR;
-    let svgMI = listItem.querySelector(".minus-icon");
-    svgMI.style.width = "1.4rem";
-    svgMI.style.marginRight = "2rem";
+    let svgMI = listItem.querySelector('.minus-icon');
+    svgMI.style.width = '1.4rem';
+    svgMI.style.marginRight = '2rem';
     courseUL.appendChild(listItem);
-    svgMI.addEventListener("click", () => {
+    svgMI.addEventListener('click', () => {
       removeCourse(displayCourses, allCourses, index);
     });
-    let resetBtn = listItem.querySelector(".reset-button");
-    resetBtn.addEventListener("click", () => {
+    let resetBtn = listItem.querySelector('.reset-button');
+    resetBtn.addEventListener('click', () => {
       resetProgress(displayCourses, allCourses, index);
     });
-    let editBtn = listItem.querySelector(".edit-button");
-    editBtn.addEventListener("click", () => {
+    let editBtn = listItem.querySelector('.edit-button');
+    editBtn.addEventListener('click', () => {
       editCourse(displayCourses, allCourses, index);
     });
   });
@@ -440,7 +440,7 @@ const courseLoad = function (displayCourses, allCourses) {
       remainingHours = Math.round((totalCourseHours - totalHours) * 100) / 100;
     }
 
-    const list = document.createElement("ul");
+    const list = document.createElement('ul');
     list.innerHTML = `
       <li class="completed-list" style="margin-top: 4rem;">
         <span style="color:${invertedBigColor(
@@ -470,7 +470,7 @@ const courseLoad = function (displayCourses, allCourses) {
       </li>
     `;
 
-    result.innerHTML = ""; // Clear previous content
+    result.innerHTML = ''; // Clear previous content
     result.appendChild(list);
   }
 
@@ -479,20 +479,22 @@ const courseLoad = function (displayCourses, allCourses) {
 let allCourses = [];
 // Sample course load:
 let sampleCourses = [
-  new Course("JavaScript", 61, 100),
-  new Course("HTML/CSS", 37, 100),
-  new Course("AWS", 14, 100),
-  new Course("Linux", 12, 100),
-  new Course("Aplus", 45, 100),
-  new Course("AWS DVA", 32, 90),
-  new Course("SQL", 22, 95),
-  new Course("Kubernetes", 28, 15),
-  new Course("TypeScript", 15, 5),
-  new Course("Node", 35, 50),
-  new Course("Svelte", 32, 0),
-  new Course("Data Str/Algos", 8, 100),
-  new Course("Terraform", 8, 5),
-  new Course("Python", 58, 15),
+  new Course('JavaScript', 61, 100),
+  new Course('HTML/CSS', 37, 100),
+  new Course('AWS', 14, 100),
+  new Course('Linux', 12, 100),
+  new Course('Aplus', 45, 100),
+  new Course('AWS DVA', 32, 90),
+  new Course('SQL', 22, 95),
+  new Course('Kubernetes', 28, 15),
+  new Course('TypeScript', 15, 60),
+  new Course('Node Course 1', 19, 100),
+  new Course('Svelte', 32, 0),
+  new Course('Data Str/Algos', 8, 100),
+  new Course('Terraform', 8, 5),
+  new Course('Python', 58, 30),
+  new Course('Node Course 2', 42, 40),
+  new Course('AWS Serverless', 8, 70),
 ];
 let blankCourses = [];
 samplePrompt();
