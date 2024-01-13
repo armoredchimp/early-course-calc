@@ -1,3 +1,5 @@
+.04 1/12/24
+- added sample data to AWS on dynamoDB, now accessed through axios, api-gateway
 .03 9/21/23
 - changed start screen to load blank courseload, with links to add new or to sample (my)courseload. Bugs remain I think
 .02a 9/17/23

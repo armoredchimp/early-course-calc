@@ -1,7 +1,7 @@
-'use strict';
+('use strict');
 
 // My original hard-coded version
-// const courseLoad = function (js, htcs, aws, lin) {
+// const courseLoadFn = function (js, htcs, aws, lin) {
 //   let jH = js * 0.7;
 //   let htH = htcs * 0.37;
 //   let awH = aws * 0.14;
@@ -33,10 +33,10 @@
 //     } remain. ${(totalHours / 133) * 100}% of the course has been completed. `
 //   );
 // };
-// courseLoad(50, 60, 95, 35);
+// courseLoadFn(50, 60, 95, 35);
 
 // Chat GPT-4's improved version:
-// const courseLoad = function (c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11) {
+// const courseLoadFn = function (c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11) {
 //   const courses = {
 //     JavaScript: { totalHours: 62, progress: c1 },
 //     'HTML/CSS': { totalHours: 37, progress: c2 },
@@ -100,12 +100,30 @@ const colorScheme = document.getElementById('colorScheme');
 const addLink = document.querySelector('.addLink');
 const sampleLink = document.querySelector('.sampleLink');
 
+class Course {
+  constructor(name, totalHours, progress = 0) {
+    this.name = name;
+    this.totalHours = totalHours;
+    this.progress = progress;
+  }
+
+  completedHours() {
+    return Math.round((this.progress / 100) * this.totalHours * 100) / 100;
+  }
+
+  remainingHours() {
+    return Math.round((this.totalHours - this.completedHours()) * 100) / 100;
+  }
+}
+
 let showCompletedCourses = true;
 let ascending = false;
 let currentColorScheme = '';
 let minusColor = getComputedStyle(document.body).getPropertyValue(
   '--minus-color'
 );
+let allCourses = [];
+let blankCourses = [];
 function toggleSortIcon() {
   if (ascending) {
     ascendIcon.style.display = 'none';
@@ -134,7 +152,7 @@ toggleBtn.addEventListener('click', () => {
   const displayCourses = showCompletedCourses
     ? allCourses
     : allCourses.filter((course) => course.progress < 100);
-  courseLoad(displayCourses, allCourses);
+  courseLoadFn(displayCourses, allCourses);
 });
 colorScheme.addEventListener('change', () => {
   if (currentColorScheme) {
@@ -143,11 +161,38 @@ colorScheme.addEventListener('change', () => {
   currentColorScheme = colorScheme.value;
   document.body.classList.add(`${currentColorScheme}`);
 });
+
 sampleLink.addEventListener('click', () => {
+  const apiUrl = config.API_URL;
+
+  axios
+    .get(apiUrl)
+    .then((response) => {
+      // Remove the extra quotes and parse the string as JavaScript objects
+      const courseString = response.data.slice(1, -2);
+      const courseObjects = eval(courseString);
+      console.log('Parsed courses:', courseObjects);
+
+      // Create Course instances from each object in the array
+      const sampleCourses = courseObjects.map(
+        (obj) => new Course(obj.name, obj.totalHours, obj.progress)
+      );
+
+      courseLoadFn(sampleCourses, sampleCourses);
+      allCourses.splice(0, allCourses.length, ...sampleCourses);
+    })
+    .catch((error) => {
+      console.error('Error fetching courses:', error);
+    });
+
   sampleClose();
-  courseLoad(sampleCourses, sampleCourses);
-  allCourses.splice(0, allCourses.length, ...sampleCourses);
 });
+
+// sampleLink.addEventListener('click', () => {
+//   sampleClose();
+//   courseLoadFn(sampleCourses, sampleCourses);
+//   allCourses.splice(0, allCourses.length, ...sampleCourses);
+// });
 addLink.addEventListener('click', () => {
   modal.style.display = 'block';
 });
@@ -187,7 +232,7 @@ function sortCourses(displayCourses) {
     ? displayCourses
     : displayCourses.filter((course) => course.progress < 100);
 
-  courseLoad(coursesToDisplay, displayCourses);
+  courseLoadFn(coursesToDisplay, displayCourses);
 }
 function updateCourse(displayCourses, allCourses, index) {
   const courseNameC = document.getElementById('courseNameE');
@@ -209,7 +254,7 @@ function updateCourse(displayCourses, allCourses, index) {
     if (!showCompletedCourses && updatedProgress === 100) {
       displayCourses = displayCourses.filter((course) => course.progress < 100);
     }
-    courseLoad(displayCourses, allCourses);
+    courseLoadFn(displayCourses, allCourses);
     editModal.style.display = 'none'; // Close the edit modal only when values are correct
     // completed();
   }
@@ -247,25 +292,10 @@ addCourseBtn.addEventListener('click', () => {
   const totalHours = Number(document.getElementById('totalHours').value);
   const newCourse = new Course(courseName, totalHours);
   allCourses.push(newCourse);
-  courseLoad(allCourses, allCourses); // update the course list
+  courseLoadFn(allCourses, allCourses); // update the course list
   modal.style.display = 'none'; // close the modal
   sampleClose();
 });
-class Course {
-  constructor(name, totalHours, progress = 0) {
-    this.name = name;
-    this.totalHours = totalHours;
-    this.progress = progress;
-  }
-
-  completedHours() {
-    return Math.round((this.progress / 100) * this.totalHours * 100) / 100;
-  }
-
-  remainingHours() {
-    return Math.round((this.totalHours - this.completedHours()) * 100) / 100;
-  }
-}
 function getColor(hours) {
   hours = Math.round(hours);
   return hours === 0
@@ -363,7 +393,7 @@ function removeCourse(displayCourses, allCourses, index) {
   } else {
     displayCourses.splice(index, 1);
   }
-  courseLoad(displayCourses, allCourses);
+  courseLoadFn(displayCourses, allCourses);
   if (displayCourses.length === 0) {
     samplePrompt();
   }
@@ -371,10 +401,10 @@ function removeCourse(displayCourses, allCourses, index) {
 
 function resetProgress(displayCourses, allCourses, index) {
   displayCourses[index].progress = 0;
-  courseLoad(displayCourses, allCourses);
+  courseLoadFn(displayCourses, allCourses);
 }
 
-const courseLoad = function (displayCourses, allCourses) {
+const courseLoadFn = function (displayCourses, allCourses) {
   let totalHours = 0;
   let totalCourseHours = 0;
 
@@ -476,30 +506,30 @@ const courseLoad = function (displayCourses, allCourses) {
 
   completed();
 };
-let allCourses = [];
+
 // Sample course load:
-let sampleCourses = [
-  new Course('JavaScript', 61, 100),
-  new Course('HTML/CSS', 37, 100),
-  new Course('AWS', 14, 100),
-  new Course('Linux', 12, 100),
-  new Course('Aplus', 45, 100),
-  new Course('AWS DVA', 32, 100),
-  new Course('SQL', 22, 95),
-  new Course('Kubernetes', 28, 15),
-  new Course('TypeScript', 15, 60),
-  new Course('Node Course 1', 19, 100),
-  new Course('Svelte', 32, 0),
-  new Course('Data Str/Algos', 8, 100),
-  new Course('Terraform', 8, 5),
-  new Course('Python', 58, 35),
-  new Course('Node Course 2', 42, 40),
-  new Course('AWS Serverless', 6, 100),
-  new Course('AWS Serverless 2', 8, 85),
-  new Course('AWS Lambda', 29, 5),
-  new Course('AWS CDK', 14, 10),
-];
-let blankCourses = [];
+// let sampleCourses = [
+//   new Course('JavaScript', 61, 100),
+//   new Course('HTML/CSS', 37, 100),
+//   new Course('AWS', 14, 100),
+//   new Course('Linux', 12, 100),
+//   new Course('Aplus', 45, 100),
+//   new Course('AWS DVA', 32, 100),
+//   new Course('SQL', 22, 95),
+//   new Course('Kubernetes', 28, 15),
+//   new Course('TypeScript', 15, 60),
+//   new Course('Node Course 1', 19, 100),
+//   new Course('Svelte', 32, 0),
+//   new Course('Data Str/Algos', 8, 100),
+//   new Course('Terraform', 8, 5),
+//   new Course('Python', 58, 35),
+//   new Course('Node Course 2', 42, 40),
+//   new Course('AWS Serverless', 6, 100),
+//   new Course('AWS Serverless 2', 8, 85),
+//   new Course('AWS Lambda', 29, 5),
+//   new Course('AWS CDK', 14, 10),
+// ];
+
 samplePrompt();
-courseLoad(blankCourses, blankCourses);
-// courseLoad(allCourses, allCourses);
+courseLoadFn(blankCourses, blankCourses);
+// courseLoadFn(allCourses, allCourses);
