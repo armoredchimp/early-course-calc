@@ -484,7 +484,7 @@ let sampleCourses = [
   new Course('AWS', 14, 100),
   new Course('Linux', 12, 100),
   new Course('Aplus', 45, 100),
-  new Course('AWS DVA', 32, 90),
+  new Course('AWS DVA', 32, 100),
   new Course('SQL', 22, 95),
   new Course('Kubernetes', 28, 15),
   new Course('TypeScript', 15, 60),
@@ -492,9 +492,12 @@ let sampleCourses = [
   new Course('Svelte', 32, 0),
   new Course('Data Str/Algos', 8, 100),
   new Course('Terraform', 8, 5),
-  new Course('Python', 58, 30),
+  new Course('Python', 58, 35),
   new Course('Node Course 2', 42, 40),
-  new Course('AWS Serverless', 8, 70),
+  new Course('AWS Serverless', 6, 100),
+  new Course('AWS Serverless 2', 8, 85),
+  new Course('AWS Lambda', 29, 5),
+  new Course('AWS CDK', 14, 10),
 ];
 let blankCourses = [];
 samplePrompt();
