@@ -1,3 +1,5 @@
+.04a 1/18/24
+- organized code structure, moved color functions to colors.js
 .04 1/12/24
 - added sample data to AWS on dynamoDB, now accessed through axios, api-gateway
 .03 9/21/23

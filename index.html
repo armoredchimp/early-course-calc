@@ -103,6 +103,21 @@
         <button class="addCBtn" id="addCourseBtn">Add Course</button>
       </div>
     </div>
+    <div class="modal-login">
+      <div class="modal-login-content">
+        <span class="closeL">&times;</span>
+        <label for="loginText">Username</label>
+        <input type="text" id="loginText" />
+        <label for="passwordText">Password</label>
+        <input type="text" id="passwordText" />
+        <label for="emailText">Email Address</label>
+        <input type="text" id="emailText" />
+        <div class="login-buttons-cont">
+          <button class="loginBtn">Login</button>
+          <button class="regBtn">Register</button>
+        </div>
+      </div>
+    </div>
     <div class="modal-edit">
       <div class="edit-modal-content">
         <span class="closeE">&times;</span>
@@ -119,7 +134,7 @@
       </div>
     </div>
     <script src="config.js"></script>
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </body>
 </html>
