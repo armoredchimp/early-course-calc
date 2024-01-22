@@ -307,7 +307,7 @@ h1 {
 .login-buttons-cont {
   display: flex;
   gap: 2rem;
-  margin-top: 2rem;
+  margin-top: 3rem;
 }
 .modal-content label,
 .modal-content input {
