@@ -143,6 +143,51 @@ h1 {
   display: flex;
   align-items: center;
 }
+.authd {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: 2rem;
+}
+.authdPre {
+  font-weight: 500;
+  color: var(--primary-color);
+}
+.authdUser {
+  color: var(--secondary-color);
+}
+.cloud-icon {
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-left: 3rem;
+  transition: transform 1s ease-in-out;
+  /* margin-top: 2rem;  */
+}
+.cloud-icon:hover {
+  transform: translateY(-0.5rem);
+  animation: slideDown 1s ease-in-out forwards;
+  color: var(--primary-color);
+}
+.cloud-icon:active {
+  /* transform: translateY(-1rem);
+  animation: slideDown 1s ease-in-out forwards; */
+  transform: translateY(0);
+  transition-duration: 0.1s;
+  animation: none;
+  color: var(--maroon-color);
+}
+@keyframes slideDown {
+  0% {
+    transform: translateY(-0.5rem);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
 .sort {
   width: 1.3rem;
   cursor: pointer;
@@ -150,7 +195,7 @@ h1 {
 .title-cont {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 2rem;
+  /* margin-bottom: 1rem; */
 }
 .asc:hover,
 .asc:active {
@@ -382,6 +427,7 @@ h4 {
   border-radius: 3px;
 }
 .login {
+  display: none;
   padding: 0.7rem;
   border-radius: 3px;
   border: none;
