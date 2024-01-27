@@ -156,10 +156,15 @@ h1 {
 .authdUser {
   color: var(--secondary-color);
 }
+.upload-to-cloud {
+  pointer-events: none;
+}
+
 .cloud-icon {
   color: var(--text-color);
   display: flex;
   align-items: center;
+  padding: 1rem;
   width: 2.5rem;
   height: 2.5rem;
   margin-left: 3rem;

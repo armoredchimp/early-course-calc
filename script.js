@@ -1,4 +1,5 @@
 ('use strict');
+// import { all } from 'axios';
 import {
   getColor,
   bigColor,
@@ -29,6 +30,7 @@ const sortCriteria = document.getElementById('sortCriteria');
 const colorScheme = document.getElementById('colorScheme');
 const addLink = document.querySelector('.addLink');
 const sampleLink = document.querySelector('.sampleLink');
+const cloudIcon = document.querySelector('.cloud-icon');
 
 loginBtn.addEventListener('click', () => {
   displayLogin();
@@ -151,13 +153,10 @@ sampleLink.addEventListener('click', () => {
   axios
     .get(apiUrl)
     .then((response) => {
-      // Remove the extra quotes and parse the string as JavaScript objects
-      const courseString = response.data.slice(1, -2);
-      const courseObjects = eval(courseString);
-      console.log('Parsed courses:', courseObjects);
-
+      const courses = response.data.courses;
       // Create Course instances from each object in the array
-      const sampleCourses = courseObjects.map(
+      console.log(courses);
+      const sampleCourses = courses.map(
         (obj) => new Course(obj.name, obj.totalHours, obj.progress)
       );
 
@@ -169,6 +168,17 @@ sampleLink.addEventListener('click', () => {
     });
 
   sampleClose();
+});
+
+cloudIcon.addEventListener('click', () => {
+  const userId = document.querySelector('.authdUser').textContent;
+  const apiURL = config.API_PUT_URL.replace('{id}', userId);
+  console.log(allCourses);
+  const courseString = JSON.stringify(allCourses);
+  axios
+    .put(apiURL, courseString)
+    .then((response) => console.log('Success:', response.data))
+    .catch((error) => console.error('Error:', error));
 });
 
 // add a new course is available from a button as well as from a text link in the start screen
@@ -305,7 +315,7 @@ const courseLoadFn = function (displayCourses, allCourses) {
   });
 
   courseUL.innerHTML = '';
-  
+
   // Display courses are only the courses shown on the screen
   displayCourses.forEach((course, index) => {
     let courseHours = course.completedHours();

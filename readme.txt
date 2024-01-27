@@ -1,3 +1,5 @@
+.04b 1/26/24
+- successfully added first version of upload to cloud functionality, using a PUT method
 .04a 1/18/24
 - organized code structure, moved color functions to colors.js
 .04 1/12/24
